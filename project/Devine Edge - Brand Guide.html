@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Devine Edge — Brand Guide</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink:       #1A1A1A;
+    --ink2:      #2A2520;
+    --mute:      #6B635A;
+    --mute2:     #8F8579;
+    --paper:     #F8F4EC;
+    --paper2:    #FBF8F1;
+    --card:      #FFFFFF;
+    --line:      #E8E0CF;
+    --line2:     #D8CDB4;
+    --blue:      #1F8FFF;
+    --blue50:    #E3EFFF;
+    --blue100:   #B9D7FB;
+    --teal:      #25564F;
+    --teal50:    #E0EAE7;
+    --maxw:      1080px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; background: var(--paper); }
+  body {
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.5;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(rgba(26,26,26,0.025) 1px, transparent 1.2px);
+    background-size: 3px 3px; opacity: 0.6; mix-blend-mode: multiply;
+  }
+
+  .serif {
+    font-family: var(--ser-family, 'Instrument Serif', serif);
+    font-style: var(--ser-style, italic);
+    font-weight: var(--ser-weight, 400);
+    letter-spacing: var(--ser-tracking, 0em);
+  }
+  /* "48 hours" accent — can be scoped independently of other serif accents */
+  .accent-48.serif {
+    font-family: var(--a48-family, var(--ser-family, 'Instrument Serif', serif));
+    font-style: var(--a48-style, var(--ser-style, italic));
+    font-weight: var(--a48-weight, var(--ser-weight, 400));
+    letter-spacing: var(--a48-tracking, var(--ser-tracking, 0em));
+  }
+  .mono  { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .num   { font-variant-numeric: tabular-nums; }
+
+  a { color: inherit; }
+
+  /* ── Eyebrow ─────────────────────────────────────────── */
+  .eyebrow {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--blue); display: inline-flex; align-items: center; gap: 11px;
+  }
+  .eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--blue100); }
+
+  /* ── Top bar ─────────────────────────────────────────── */
+  header.bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(248,244,236,0.86); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar-inner {
+    max-width: var(--maxw); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .bar-brand { display: inline-flex; align-items: center; gap: 12px; }
+  .bar-mark { width: 19px; height: 20px; color: var(--ink); }
+  .bar-brand img { height: 17px; display: block; }
+  .bar-brand .tag {
+    font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mute2); padding-left: 13px;
+    border-left: 1px solid var(--line2);
+  }
+  nav.toc { display: flex; gap: 4px; flex-wrap: wrap; }
+  nav.toc a {
+    font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.04em;
+    text-decoration: none; color: var(--mute); padding: 5px 9px; border-radius: 7px;
+    transition: color .15s ease, background .15s ease;
+  }
+  nav.toc a:hover { color: var(--ink); background: rgba(26,26,26,0.04); }
+  nav.toc a.active { color: var(--blue); background: var(--blue50); }
+  @media (max-width: 880px) { nav.toc { display: none; } }
+
+  /* ── Layout ──────────────────────────────────────────── */
+  main { position: relative; z-index: 1; }
+  section.block {
+    max-width: var(--maxw); margin: 0 auto; padding: 84px 32px;
+    border-bottom: 1px solid var(--line); scroll-margin-top: 64px;
+  }
+  .sec-head { margin-bottom: 44px; }
+  .sec-index {
+    font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--mute2);
+    letter-spacing: 0.06em;
+  }
+  h2.sec-title {
+    font-size: clamp(30px, 4.4vw, 46px); font-weight: 600; letter-spacing: -0.025em;
+    line-height: 1.04; margin: 16px 0 0; max-width: 18ch;
+  }
+  .sec-lede {
+    margin: 18px 0 0; font-size: 17px; color: var(--mute); max-width: 60ch; line-height: 1.55;
+  }
+  h3.sub {
+    font-size: 13px; font-family: 'Geist Mono', monospace; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink2); margin: 0 0 16px;
+  }
+  p { text-wrap: pretty; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 18px 40px -28px rgba(26,26,26,0.18);
+  }
+  .grid { display: grid; gap: 18px; }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 760px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } }
+
+  /* ── Cover ───────────────────────────────────────────── */
+  .cover {
+    max-width: var(--maxw); margin: 0 auto; padding: 96px 32px 80px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cover .wm { height: 30px; margin-bottom: 56px; }
+  .cover h1 {
+    font-size: clamp(40px, 7vw, 84px); font-weight: 600; letter-spacing: -0.035em;
+    line-height: 0.98; margin: 0; max-width: 16ch;
+  }
+  .cover h1 .serif { color: var(--blue); letter-spacing: -0.01em; }
+  .cover .meta {
+    margin-top: 48px; display: flex; flex-wrap: wrap; gap: 40px;
+    border-top: 1px solid var(--line); padding-top: 28px;
+  }
+  .cover .meta div { display: flex; flex-direction: column; gap: 5px; }
+  .cover .meta .k {
+    font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--mute2);
+  }
+  .cover .meta .v { font-size: 15px; color: var(--ink2); }
+
+  /* ── Brand statement strip ───────────────────────────── */
+  .statement {
+    background: var(--ink); color: var(--paper2); border-radius: 18px;
+    padding: 56px 52px; position: relative; overflow: hidden;
+  }
+  .statement::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .statement .eyebrow { color: var(--blue100); }
+  .statement .eyebrow::before { background: rgba(185,215,251,0.5); }
+  .statement q {
+    display: block; font-size: clamp(26px, 3.6vw, 40px); font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.15; margin: 22px 0 0; max-width: 22ch;
+    quotes: none;
+  }
+  .statement q .serif { color: var(--blue); }
+
+  .pillars { margin-top: 26px; }
+  .pillar { padding: 24px; }
+  .pillar .pico { width: 26px; height: 27px; color: var(--blue); margin-bottom: 16px; }
+  .pillar h4 { margin: 0 0 7px; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  .pillar p { margin: 0; font-size: 14px; color: var(--mute); line-height: 1.55; }
+
+  /* ── Logo section ────────────────────────────────────── */
+  .logo-showcase {
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 18px;
+  }
+  @media (max-width: 760px) { .logo-showcase { grid-template-columns: 1fr; } }
+  .logo-tile {
+    display: flex; align-items: center; justify-content: center; padding: 54px;
+    min-height: 200px; position: relative;
+  }
+  .logo-tile .cap {
+    position: absolute; left: 16px; bottom: 14px;
+    font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--mute2);
+  }
+  .logo-tile.dark { background: var(--ink); }
+  .logo-tile.dark .cap { color: rgba(255,255,255,0.4); }
+  .logo-tile.paper-bg { background: var(--paper); }
+  .logo-tile img.wm { height: 30px; }
+  .logo-tile img.wm.white { filter: brightness(0) invert(1); }
+  .logo-tile .mark-lg { width: 66px; height: 70px; color: var(--ink); }
+  .logo-tile.dark .mark-lg { color: var(--paper2); }
+
+  /* clear space */
+  .clearspace {
+    display: flex; align-items: center; gap: 40px; flex-wrap: wrap; padding: 40px;
+  }
+  .cs-frame { position: relative; padding: 38px; }
+  .cs-frame .guide {
+    position: absolute; inset: 0; border: 1px dashed var(--blue100); border-radius: 4px;
+  }
+  .cs-frame .inner {
+    position: relative; border: 1px solid var(--line2); padding: 14px;
+  }
+  .cs-frame .mark-lg { width: 54px; height: 57px; color: var(--ink); display: block; }
+  .cs-frame .dim {
+    position: absolute; font-family: 'Geist Mono', monospace; font-size: 10px;
+    color: var(--blue); letter-spacing: 0.1em; background: var(--card); padding: 0 4px;
+  }
+  .cs-frame .dim.top { top: -7px; left: 50%; transform: translateX(-50%); }
+  .cs-frame .dim.left { left: -10px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+  .cs-note { max-width: 30ch; }
+  .cs-note p { margin: 0; font-size: 14px; color: var(--mute); line-height: 1.6; }
+  .cs-note .x {
+    display: inline-grid; place-items: center; width: 22px; height: 22px;
+    border: 1px solid var(--blue100); color: var(--blue); border-radius: 5px;
+    font-family: 'Geist Mono', monospace; font-size: 12px; font-style: italic;
+  }
+
+  /* do / don't */
+  .dd { padding: 0; overflow: hidden; }
+  .dd-vis {
+    height: 130px; display: flex; align-items: center; justify-content: center;
+    background: var(--paper2); border-bottom: 1px solid var(--line);
+  }
+  .dd.bad .dd-vis { background: repeating-linear-gradient(45deg, var(--paper2), var(--paper2) 9px, #F3ECDD 9px, #F3ECDD 18px); }
+  .dd-foot { padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px; }
+  .dd-badge {
+    flex: none; width: 20px; height: 20px; border-radius: 6px; display: grid; place-items: center;
+    margin-top: 1px;
+  }
+  .dd.good .dd-badge { background: var(--teal50); color: var(--teal); }
+  .dd.bad .dd-badge { background: #FBE6E2; color: #B23A26; }
+  .dd-foot p { margin: 0; font-size: 13px; color: var(--mute); line-height: 1.5; }
+  .dd .mark-lg { width: 40px; height: 42px; color: var(--ink); }
+
+  /* ── Color ───────────────────────────────────────────── */
+  .swatch { overflow: hidden; }
+  .swatch .chip { height: 96px; border-bottom: 1px solid rgba(26,26,26,0.06); }
+  .swatch .body { padding: 13px 15px 15px; }
+  .swatch .name { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .swatch .hex {
+    font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--mute);
+    margin-top: 3px; text-transform: uppercase;
+  }
+  .swatch .role { font-size: 12px; color: var(--mute2); margin-top: 8px; line-height: 1.45; }
+
+  .ratio { padding: 24px; }
+  .ratio-bar {
+    display: flex; height: 46px; border-radius: 9px; overflow: hidden;
+    border: 1px solid var(--line); margin-bottom: 16px;
+  }
+  .ratio-bar span { display: block; }
+  .ratio-legend { display: flex; flex-wrap: wrap; gap: 18px; }
+  .ratio-legend .it { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--mute); }
+  .ratio-legend .dot { width: 12px; height: 12px; border-radius: 3px; border: 1px solid rgba(26,26,26,0.08); }
+
+  /* ── Typography ──────────────────────────────────────── */
+  .font-card { padding: 28px 30px; }
+  .font-card .specimen { font-size: 58px; line-height: 1; letter-spacing: -0.02em; margin: 0 0 18px; }
+  .font-card .fname { font-size: 15px; font-weight: 600; }
+  .font-card .fmeta { font-family: 'Geist Mono', monospace; font-size: 11.5px; color: var(--mute2); margin-top: 4px; letter-spacing: 0.04em; }
+  .font-card .charset { margin-top: 16px; font-size: 13px; color: var(--mute); word-spacing: 2px; }
+
+  .scale { padding: 8px 0; }
+  .scale-row {
+    display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: baseline;
+    padding: 18px 0; border-top: 1px solid var(--line);
+  }
+  .scale-row:first-child { border-top: none; }
+  .scale-spec { font-family: 'Geist Mono', monospace; font-size: 11.5px; color: var(--mute2); letter-spacing: 0.04em; line-height: 1.6; }
+  .scale-sample { color: var(--ink); letter-spacing: -0.02em; line-height: 1.05; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ── Voice ───────────────────────────────────────────── */
+  .voice-pillar { padding: 24px 26px; }
+  .voice-pillar h4 { margin: 0 0 8px; font-size: 17px; font-weight: 600; letter-spacing: -0.015em; }
+  .voice-pillar h4 .serif { color: var(--blue); }
+  .voice-pillar p { margin: 0; font-size: 14px; color: var(--mute); line-height: 1.6; }
+  .copy-pair { padding: 22px 24px; }
+  .copy-pair .lab { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .copy-pair .lab .mono { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .copy-pair.say .lab .mono { color: var(--teal); }
+  .copy-pair.dont .lab .mono { color: #B23A26; }
+  .copy-pair .line { font-size: 17px; letter-spacing: -0.015em; line-height: 1.3; }
+  .copy-pair.dont .line { color: var(--mute); text-decoration: line-through; text-decoration-color: rgba(178,58,38,0.35); }
+  .tick { width: 18px; height: 18px; border-radius: 5px; display: grid; place-items: center; flex: none; }
+  .say .tick { background: var(--teal50); color: var(--teal); }
+  .dont .tick { background: #FBE6E2; color: #B23A26; }
+
+  /* ── Components ──────────────────────────────────────── */
+  .comp-card { padding: 30px; display: flex; flex-direction: column; gap: 18px; }
+  .comp-card .demo { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .ll-btn {
+    background: var(--ink); color: var(--paper2); border: none; font: inherit; font-weight: 500;
+    font-size: 14px; padding: 12px 20px; border-radius: 999px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .12s ease, background .2s ease;
+  }
+  .ll-btn:hover { background: #000; transform: translateY(-1px); }
+  .ll-btn svg { width: 16px; height: 16px; }
+  .ll-btn.sec { background: transparent; color: var(--ink); border: 1px solid var(--line2); }
+  .ll-btn.sec:hover { background: var(--paper); border-color: var(--ink); }
+  .ll-btn.blue { background: var(--blue); }
+  .ll-btn.blue:hover { background: #0E7CEB; }
+  .inline-form {
+    display: flex; align-items: center; gap: 8px; background: var(--card);
+    border: 1px solid var(--line2); border-radius: 999px; padding: 6px 6px 6px 18px;
+    width: 100%; max-width: 380px;
+  }
+  .inline-form input { flex: 1; border: none; background: transparent; outline: none; font: inherit; font-size: 14px; color: var(--ink); padding: 8px 0; }
+  .inline-form input::placeholder { color: var(--mute2); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px; font-family: 'Geist Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 999px;
+  }
+  .badge.blue { background: var(--blue50); color: var(--blue); }
+  .badge.teal { background: var(--teal50); color: var(--teal); }
+  .badge.dot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .comp-label { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute2); }
+
+  /* ── Motion ──────────────────────────────────────────── */
+  .motion-card { padding: 26px; }
+  .motion-card .big { font-size: 40px; font-weight: 600; letter-spacing: -0.03em; }
+  .motion-card .big .mono { font-size: 16px; color: var(--mute2); letter-spacing: 0; }
+  .motion-card h4 { margin: 14px 0 6px; font-size: 15px; font-weight: 600; }
+  .motion-card p { margin: 0; font-size: 13.5px; color: var(--mute); line-height: 1.55; }
+
+  /* ── Imagery ─────────────────────────────────────────── */
+  .img-slot {
+    border: 1px solid var(--line2); border-radius: 12px; min-height: 180px;
+    background:
+      repeating-linear-gradient(135deg, rgba(26,26,26,0.025) 0 10px, transparent 10px 20px),
+      var(--paper2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .img-slot .ph { font-family: 'Geist Mono', monospace; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute2); text-align: center; }
+
+  ul.rules { list-style: none; margin: 0; padding: 0; }
+  ul.rules li { position: relative; padding: 9px 0 9px 26px; font-size: 14px; color: var(--mute); border-top: 1px solid var(--line); line-height: 1.5; }
+  ul.rules li:first-child { border-top: none; }
+  ul.rules li::before {
+    content: ''; position: absolute; left: 2px; top: 16px; width: 9px; height: 9px;
+    border: 1.5px solid var(--blue); border-radius: 2px;
+  }
+  ul.rules li strong { color: var(--ink); font-weight: 600; }
+
+  /* ── Footer ──────────────────────────────────────────── */
+  footer.colophon {
+    max-width: var(--maxw); margin: 0 auto; padding: 56px 32px 80px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  }
+  footer.colophon .l { display: flex; align-items: center; gap: 14px; }
+  footer.colophon img { height: 18px; }
+  footer.colophon .meta { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--mute2); letter-spacing: 0.06em; }
+</style>
+<link id="gfont-Poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Inter" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Open-Sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Oswald" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Playfair-Display" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Rubik" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Work-Sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Bebas-Neue" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Righteous" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Righteous:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Comfortaa" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Pacifico" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Permanent-Marker" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Permanent+Marker:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Architects-Daughter" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Caveat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Cabin" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@300;400;500;600;700&amp;display=swap">
+</head>
+<body style="font-family: Geist">
+
+<header class="bar">
+  <div class="bar-inner">
+    <span class="bar-brand">
+      <svg class="bar-mark" viewBox="0 0 118 126" fill="currentColor" aria-hidden="true"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg>
+      <img src="assets/wordmark.svg" alt="Devine Edge" />
+      <span class="tag">Brand Guide</span>
+    </span>
+    <nav class="toc" aria-label="Sections">
+      <a href="#brand">Brand</a>
+      <a href="#logo">Logo</a>
+      <a href="#color">Color</a>
+      <a href="#type">Type</a>
+      <a href="#voice">Voice</a>
+      <a href="#components">UI</a>
+      <a href="#motion">Motion</a>
+      <a href="#imagery">Imagery</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- COVER -->
+  <div class="cover">
+    <img class="wm" src="assets/wordmark.svg" alt="Devine Edge" style="object-fit: fill" />
+    <h1>The brand that helps you <span class="serif">win the recommendation.</span></h1>
+    <div class="meta">
+      <div><span class="k">Document</span><span class="v">Brand &amp; Design Guide</span></div>
+      <div><span class="k">Version</span><span class="v num">1.0</span></div>
+      <div><span class="k">Updated</span><span class="v">May 2026</span></div>
+      <div><span class="k">Owner</span><span class="v">Devine Edge — Brand</span></div>
+    </div>
+  </div>
+
+  <!-- BRAND -->
+  <section class="block" id="brand">
+    <div class="sec-head">
+      <span class="sec-index mono">01 — Brand</span>
+      <h2 class="sec-title">An operating system for modern local growth.</h2>
+      <p class="sec-lede">Devine Edge helps local businesses become the one that gets recommended — by customers, by Google, and increasingly by AI. The brand is confident, plain-spoken, and quietly technical. It earns trust by being specific.</p>
+    </div>
+
+    <div class="statement">
+      <span class="eyebrow">The line</span>
+      <q>Become the Business <span class="serif">AI recommends.</span></q>
+    </div>
+
+    <div class="grid g3 pillars">
+      <div class="pillar card">
+        <svg class="pico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+        <h4>Visibility, made measurable</h4>
+        <p>We turn vague "online presence" into a concrete, audited signal across AI search, Google, and lead capture.</p>
+      </div>
+      <div class="pillar card">
+        <svg class="pico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg>
+        <h4>Plain-spoken authority</h4>
+        <p>No jargon, no hype. We explain what's happening and what to do — like a trusted operator, not a vendor.</p>
+      </div>
+      <div class="pillar card">
+        <svg class="pico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        <h4>Always forward</h4>
+        <p>Every touchpoint moves the customer one clear step ahead. The arrow in our mark is the brand in one shape.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO -->
+  <section class="block" id="logo">
+    <div class="sec-head">
+      <span class="sec-index mono">02 — Logo &amp; Mark</span>
+      <h2 class="sec-title">One arrow, always moving forward.</h2>
+      <p class="sec-lede">The mark is a geometric "E" cut into a forward arrow — edge and motion in a single glyph. Pair it with the wordmark for primary use; the mark stands alone only where the brand is already established.</p>
+    </div>
+
+    <div class="logo-showcase">
+      <div class="logo-tile card paper-bg">
+        <img class="wm" src="assets/wordmark.svg" alt="Devine Edge wordmark" />
+        <span class="cap">Primary lockup · on paper</span>
+      </div>
+      <div class="logo-tile card">
+        <svg class="mark-lg" viewBox="0 0 118 126" fill="currentColor" aria-hidden="true"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg>
+        <span class="cap">The mark · on card</span>
+      </div>
+      <div class="logo-tile card dark">
+        <img class="wm white" src="assets/wordmark.svg" alt="Devine Edge wordmark, reversed" />
+        <span class="cap">Reversed · on ink</span>
+      </div>
+      <div class="logo-tile card dark">
+        <svg class="mark-lg" viewBox="0 0 118 126" fill="currentColor" aria-hidden="true"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg>
+        <span class="cap">Mark reversed</span>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px;">
+      <div class="card clearspace">
+        <div class="cs-frame">
+          <span class="guide"></span>
+          <span class="dim top">x</span>
+          <span class="dim left">x</span>
+          <div class="inner">
+            <svg class="mark-lg" viewBox="0 0 118 126" fill="currentColor" aria-hidden="true"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg>
+          </div>
+        </div>
+        <div class="cs-note">
+          <h3 class="sub">Clear space</h3>
+          <p>Keep a margin of <span class="x">x</span> on all sides, where <em>x</em> equals the width of the arrow notch. Nothing — type, edges, or other marks — enters this zone.</p>
+        </div>
+      </div>
+      <div class="card" style="padding:30px;">
+        <h3 class="sub">Minimum sizes</h3>
+        <ul class="rules">
+          <li><strong>Wordmark</strong> — never below 96&nbsp;px wide on screen, 22&nbsp;mm in print.</li>
+          <li><strong>Mark</strong> — never below 20&nbsp;px / 6&nbsp;mm; favicon is the only exception.</li>
+          <li><strong>Pairing</strong> — wordmark leads in all primary contexts; the standalone mark is for avatars, favicons, and app icons.</li>
+          <li><strong>Color</strong> — ink on paper by default; reverse to paper on ink. Electric blue is reserved for the accent system, never the logo fill.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub" style="margin-top:48px;">Do &amp; don't</h3>
+    <div class="grid g4">
+      <div class="card dd good">
+        <div class="dd-vis"><svg class="mark-lg" viewBox="0 0 118 126" fill="currentColor"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg></div>
+        <div class="dd-foot"><span class="dd-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><p>Use approved ink or reversed marks at full opacity.</p></div>
+      </div>
+      <div class="card dd bad">
+        <div class="dd-vis"><svg class="mark-lg" viewBox="0 0 118 126" fill="currentColor" style="color:var(--blue); transform:rotate(-12deg);"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg></div>
+        <div class="dd-foot"><span class="dd-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></span><p>Don't rotate, recolor with the accent, or skew the mark.</p></div>
+      </div>
+      <div class="card dd bad">
+        <div class="dd-vis"><svg class="mark-lg" viewBox="0 0 118 126" fill="currentColor" style="transform:scaleX(1.7);"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg></div>
+        <div class="dd-foot"><span class="dd-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></span><p>Don't stretch, condense, or alter the proportions.</p></div>
+      </div>
+      <div class="card dd bad">
+        <div class="dd-vis" style="background:var(--blue);"><svg class="mark-lg" viewBox="0 0 118 126" fill="currentColor" style="color:var(--teal);"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg></div>
+        <div class="dd-foot"><span class="dd-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></span><p>Don't place on low-contrast or clashing color fields.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section class="block" id="color">
+    <div class="sec-head">
+      <span class="sec-index mono">03 — Color</span>
+      <h2 class="sec-title">Warm paper, deep ink, one electric edge.</h2>
+      <p class="sec-lede">The palette is built on a warm off-white and a near-black — calm, editorial, trustworthy. Electric blue is the single accent that signals action and focus. Teal is a quiet support color for confirmations and secondary tags.</p>
+    </div>
+
+    <h3 class="sub">Foundation</h3>
+    <div class="grid g4">
+      <div class="card swatch"><div class="chip" style="background:#1A1A1A;"></div><div class="body"><div class="name">Ink</div><div class="hex">#1A1A1A</div><div class="role">Primary text, the logo, dark surfaces.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#2A2520;"></div><div class="body"><div class="name">Ink 2</div><div class="hex">#2A2520</div><div class="role">Headings on light, subtle warm depth.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#F8F4EC;"></div><div class="body"><div class="name">Paper</div><div class="hex">#F8F4EC</div><div class="role">The default canvas. Calm and warm.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#FBF8F1;"></div><div class="body"><div class="name">Paper 2</div><div class="hex">#FBF8F1</div><div class="role">Raised wells and inset fields.</div></div></div>
+    </div>
+
+    <h3 class="sub" style="margin-top:34px;">Accent &amp; support</h3>
+    <div class="grid g4">
+      <div class="card swatch"><div class="chip" style="background:#1F8FFF;"></div><div class="body"><div class="name">Electric Blue</div><div class="hex">#1F8FFF</div><div class="role">Primary accent — links, focus, key CTAs.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#E3EFFF;"></div><div class="body"><div class="name">Blue 50</div><div class="hex">#E3EFFF</div><div class="role">Accent wash for badges and highlights.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#25564F;"></div><div class="body"><div class="name">Teal</div><div class="hex">#25564F</div><div class="role">Support — success, confirmations.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#E0EAE7;"></div><div class="body"><div class="name">Teal 50</div><div class="hex">#E0EAE7</div><div class="role">Quiet success and secondary tags.</div></div></div>
+    </div>
+
+    <h3 class="sub" style="margin-top:34px;">Neutrals &amp; lines</h3>
+    <div class="grid g4">
+      <div class="card swatch"><div class="chip" style="background:#6B635A;"></div><div class="body"><div class="name">Mute</div><div class="hex">#6B635A</div><div class="role">Body copy on paper, captions.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#8F8579;"></div><div class="body"><div class="name">Mute 2</div><div class="hex">#8F8579</div><div class="role">Placeholders, metadata, labels.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#E8E0CF;"></div><div class="body"><div class="name">Line</div><div class="hex">#E8E0CF</div><div class="role">Default hairline borders, dividers.</div></div></div>
+      <div class="card swatch"><div class="chip" style="background:#D8CDB4;"></div><div class="body"><div class="name">Line 2</div><div class="hex">#D8CDB4</div><div class="role">Stronger borders, input outlines.</div></div></div>
+    </div>
+
+    <div class="card ratio" style="margin-top:34px;">
+      <h3 class="sub">Usage ratio</h3>
+      <div class="ratio-bar">
+        <span style="background:#F8F4EC; flex:70;"></span>
+        <span style="background:#1A1A1A; flex:22;"></span>
+        <span style="background:#1F8FFF; flex:6;"></span>
+        <span style="background:#25564F; flex:2;"></span>
+      </div>
+      <div class="ratio-legend">
+        <span class="it"><span class="dot" style="background:#F8F4EC;"></span>~70% Paper</span>
+        <span class="it"><span class="dot" style="background:#1A1A1A;"></span>~22% Ink</span>
+        <span class="it"><span class="dot" style="background:#1F8FFF;"></span>~6% Blue accent</span>
+        <span class="it"><span class="dot" style="background:#25564F;"></span>~2% Teal</span>
+      </div>
+      <p style="margin:16px 0 0; font-size:13.5px; color:var(--mute); max-width:62ch; line-height:1.55;">Accent restraint is the rule. Blue earns attention precisely because it's rare — reserve it for the single most important action on a view. Ink on Paper clears <strong style="color:var(--ink); font-weight:600;">WCAG AAA</strong>; blue on paper is for accents and large text, not body copy.</p>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="block" id="type">
+    <div class="sec-head">
+      <span class="sec-index mono">04 — Typography</span>
+      <h2 class="sec-title">Geist for clarity, a serif for the human note.</h2>
+      <p class="sec-lede">Three families do all the work. Geist carries every interface and headline; Instrument Serif italic adds a warm, editorial accent on key phrases; Geist Mono labels, tags, and data.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card font-card">
+        <p class="specimen">Ag</p>
+        <div class="fname">Geist</div>
+        <div class="fmeta">SANS · 300 400 500 600 700</div>
+        <p class="charset">The quick brown fox jumps. 0123456789</p>
+      </div>
+      <div class="card font-card">
+        <p class="specimen serif" style="font-size:64px;">Ag</p>
+        <div class="fname">Instrument Serif <span class="serif" style="color:var(--blue);">Italic</span></div>
+        <div class="fmeta">ACCENT · italic, 400</div>
+        <p class="charset serif" style="font-size:16px;">Become the business AI recommends.</p>
+      </div>
+      <div class="card font-card">
+        <p class="specimen mono" style="font-size:48px;">Ag</p>
+        <div class="fname mono" style="font-weight:500;">Geist Mono</div>
+        <div class="fmeta">LABELS · 400 500</div>
+        <p class="charset mono" style="font-size:12px;">FREE · 90-SECOND SIGN-UP</p>
+      </div>
+    </div>
+
+    <div class="card scale" style="margin-top:18px; padding:14px 30px;">
+      <div class="scale-row"><div class="scale-spec">Display<br>56 / 600<br>-0.035em</div><div class="scale-sample" style="font-size:52px; font-weight:600;">Win the recommendation</div></div>
+      <div class="scale-row"><div class="scale-spec">H1<br>40 / 600<br>-0.03em</div><div class="scale-sample" style="font-size:40px; font-weight:600;">Become the Business AI recommends</div></div>
+      <div class="scale-row"><div class="scale-spec">H2<br>30 / 600<br>-0.025em</div><div class="scale-sample" style="font-size:30px; font-weight:600;">Get your audit <span class="serif accent-48" style="color:var(--blue);">in 48 hours</span></div></div>
+      <div class="scale-row"><div class="scale-spec">Lede<br>19 / 400<br>-0.01em</div><div class="scale-sample" style="font-size:19px; color:var(--mute);">A 12-page diagnostic of your visibility signals.</div></div>
+      <div class="scale-row"><div class="scale-spec">Body<br>15 / 400</div><div class="scale-sample" style="font-size:15px; color:var(--ink2);">Plain-spoken, specific, and never padded. We say the useful thing.</div></div>
+      <div class="scale-row"><div class="scale-spec">Eyebrow<br>11 / mono<br>0.22em caps</div><div class="scale-sample mono" style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--blue);">Free AI Visibility Audit</div></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px;">
+      <div class="card" style="padding:26px 28px;">
+        <h3 class="sub">The serif accent</h3>
+        <p style="margin:0; font-size:14px; color:var(--mute); line-height:1.6;">Use Instrument Serif italic — in <span class="serif" style="color:var(--blue);">electric blue</span> — for at most one phrase per headline. It marks the emotional or human turn in a line. Never set body copy, UI, or whole headlines in it.</p>
+      </div>
+      <div class="card" style="padding:26px 28px;">
+        <h3 class="sub">Setting rules</h3>
+        <ul class="rules">
+          <li>Headlines: tight tracking (<strong>-0.02 to -0.035em</strong>), line-height ~1.05.</li>
+          <li>Body: <strong>Mute</strong> on Paper, 1.5–1.6 line-height, ~62ch measure.</li>
+          <li>Labels &amp; tags: <strong>Geist Mono</strong>, uppercase, 0.14–0.22em tracking.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE -->
+  <section class="block" id="voice">
+    <div class="sec-head">
+      <span class="sec-index mono">05 — Voice &amp; Tone</span>
+      <h2 class="sec-title">Talk like the sharpest operator in the room.</h2>
+      <p class="sec-lede">Confident, concrete, and generous with the truth. We sound like someone who has done this a hundred times and wants you to win — not a marketer working a funnel.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card voice-pillar"><h4>Specific <span class="serif">over clever</span></h4><p>Name the number, the page, the timeframe. "A 12-page audit in 48 hours" beats "actionable insights."</p></div>
+      <div class="card voice-pillar"><h4>Plain <span class="serif">over jargon</span></h4><p>If a phrase needs a glossary, cut it. We translate the technical into the obvious.</p></div>
+      <div class="card voice-pillar"><h4>Forward <span class="serif">over passive</span></h4><p>Every sentence points to the next step. Active verbs, short clauses, clear asks.</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px;">
+      <div class="card copy-pair say">
+        <div class="lab"><span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="mono">We say</span></div>
+        <div class="line">Become the Business <span class="serif" style="color:var(--blue);">AI recommends.</span></div>
+      </div>
+      <div class="card copy-pair dont">
+        <div class="lab"><span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></span><span class="mono">Not</span></div>
+        <div class="line">Leverage next-gen AI synergies to maximize your digital footprint.</div>
+      </div>
+      <div class="card copy-pair say">
+        <div class="lab"><span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="mono">We say</span></div>
+        <div class="line">Drop your email. We send the audit — no call required.</div>
+      </div>
+      <div class="card copy-pair dont">
+        <div class="lab"><span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></span><span class="mono">Not</span></div>
+        <div class="line">Sign up today and a representative will reach out to discuss your needs!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="block" id="components">
+    <div class="sec-head">
+      <span class="sec-index mono">06 — UI Components</span>
+      <h2 class="sec-title">Soft surfaces, pill actions, hairline structure.</h2>
+      <p class="sec-lede">White cards on warm paper, generous radii, and fine borders. Buttons are fully rounded; the dark primary leads, blue is reserved for the single most important action.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card comp-card">
+        <span class="comp-label">Buttons</span>
+        <div class="demo">
+          <button class="ll-btn">Get my audit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+          <button class="ll-btn blue">Primary action</button>
+          <button class="ll-btn sec">Secondary</button>
+        </div>
+      </div>
+      <div class="card comp-card">
+        <span class="comp-label">Badges &amp; tags</span>
+        <div class="demo">
+          <span class="badge blue dot">Live audit</span>
+          <span class="badge teal dot">Verified</span>
+          <span class="badge" style="background:var(--paper); color:var(--mute); border:1px solid var(--line2);">v1.0</span>
+        </div>
+      </div>
+      <div class="card comp-card">
+        <span class="comp-label">Inline email capture</span>
+        <div class="inline-form">
+          <input type="email" placeholder="you@business.com" />
+          <button class="ll-btn">Get my audit</button>
+        </div>
+      </div>
+      <div class="card comp-card">
+        <span class="comp-label">Eyebrow + heading</span>
+        <div>
+          <span class="eyebrow">Free · 90-second sign-up</span>
+          <div style="font-size:26px; font-weight:600; letter-spacing:-0.02em; margin-top:12px;">Get your audit <span class="serif accent-48" style="color:var(--blue);">in 48 hours.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:18px;">
+      <div class="card" style="padding:22px;"><span class="comp-label">Radius</span><p style="margin:10px 0 0; font-size:13.5px; color:var(--mute); line-height:1.5;">Cards <strong style="color:var(--ink);">14px</strong> · wells 9px · buttons &amp; fields fully rounded (<strong style="color:var(--ink);">999px</strong>).</p></div>
+      <div class="card" style="padding:22px;"><span class="comp-label">Elevation</span><p style="margin:10px 0 0; font-size:13.5px; color:var(--mute); line-height:1.5;">Soft, warm shadows only — a 1px tint line plus a long, low-opacity drop. Never hard or gray.</p></div>
+      <div class="card" style="padding:22px;"><span class="comp-label">Texture</span><p style="margin:10px 0 0; font-size:13.5px; color:var(--mute); line-height:1.5;">A faint dot grid sits behind paper surfaces at low opacity to add warmth without noise.</p></div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section class="block" id="motion">
+    <div class="sec-head">
+      <span class="sec-index mono">07 — Motion</span>
+      <h2 class="sec-title">Entrances that settle, never bounce around.</h2>
+      <p class="sec-lede">Motion is purposeful and brief. Elements arrive once, ease into place, and stay still. The forward arrow is our cue — things move ahead, then rest.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card motion-card"><div class="big">120–620<span class="mono"> ms</span></div><h4>Duration</h4><p>Quick, layered entrances. Stagger related elements 60–120ms apart for rhythm.</p></div>
+      <div class="card motion-card"><div class="big" style="font-size:30px;">easeOut<span class="serif" style="color:var(--blue); font-size:30px;">Back</span></div><h4>Easing</h4><p>Decelerating curves with a faint overshoot on hero elements. Calm, not springy.</p></div>
+      <div class="card motion-card"><div class="big">Once</div><h4>On view</h4><p>Entrances fire a single time after fonts load — never on every scroll. No loops.</p></div>
+    </div>
+
+    <div class="card" style="margin-top:18px; padding:24px 28px; display:flex; gap:14px; align-items:flex-start;">
+      <span class="badge teal dot" style="flex:none; margin-top:2px;">Accessibility</span>
+      <p style="margin:0; font-size:14px; color:var(--mute); line-height:1.6; max-width:70ch;">Always honor <span class="mono" style="font-size:12.5px; color:var(--ink2);">prefers-reduced-motion</span>. Users with the OS setting on see the final, settled state instantly — no entrance, no parallax, no delay on content.</p>
+    </div>
+  </section>
+
+  <!-- IMAGERY -->
+  <section class="block" id="imagery" style="border-bottom:none;">
+    <div class="sec-head">
+      <span class="sec-index mono">08 — Imagery &amp; Iconography</span>
+      <h2 class="sec-title">Real signal, drawn simply.</h2>
+      <p class="sec-lede">Imagery shows the product and the people who use it — never generic stock abstraction. Icons are thin, geometric line work that echoes the angles of the mark.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="img-slot"><span class="ph">Product / dashboard shot<br>— audit report —</span></div>
+      <div class="img-slot"><span class="ph">Local business owner<br>— real, candid, warm —</span></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px;">
+      <div class="card" style="padding:28px 30px;">
+        <h3 class="sub">Icon style</h3>
+        <div style="display:flex; gap:18px; color:var(--ink); margin:4px 0 18px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"></path></svg>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"></path></svg>
+        </div>
+        <p style="margin:0; font-size:14px; color:var(--mute); line-height:1.6;">Outlined, ~1.6px stroke, rounded joins. Match the optical weight of the surrounding text. No fills, no duotone, no emoji.</p>
+      </div>
+      <div class="card" style="padding:28px 30px;">
+        <h3 class="sub">Photography</h3>
+        <ul class="rules">
+          <li><strong>Warm &amp; natural</strong> light — never cold or clinical.</li>
+          <li>Show <strong>the work and the win</strong>: real screens, real owners.</li>
+          <li>Crop with intent; leave room for the dot-grid texture to breathe.</li>
+          <li>Avoid stock clichés — handshakes, glowing AI brains, fake dashboards.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <span class="l">
+    <img src="assets/wordmark.svg" alt="Devine Edge" />
+    <span class="meta">Brand Guide · v1.0</span>
+  </span>
+  <span class="meta">Become the Business AI recommends. · May 2026</span>
+</footer>
+
+<template id="__bundler_thumbnail" data-bg-color="#F8F4EC">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#F8F4EC"></rect>
+    <g transform="translate(141 130)" fill="#1A1A1A">
+      <polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon>
+      <polygon points="54,63 116,37 116,88" fill="#1F8FFF"></polygon>
+    </g>
+  </svg>
+</template>
+
+<script>
+  // Scrollspy — highlight the active section link.
+  (function () {
+    const links = Array.from(document.querySelectorAll('nav.toc a'));
+    const map = {};
+    links.forEach((a) => { map[a.getAttribute('href').slice(1)] = a; });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          links.forEach((l) => l.classList.remove('active'));
+          const a = map[e.target.id];
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    document.querySelectorAll('section.block').forEach((s) => io.observe(s));
+  })();
+</script>
+
+<div id="tweak-root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "treatment": "Bold",
+    "scope": "Just \"48 hours\"",
+    "weight": 700,
+    "tracking": -0.02
+  }/*EDITMODE-END*/;
+
+  const TREATMENTS = {
+    "Serif italic": { family: "'Instrument Serif', serif", style: "italic", useWeight: false },
+    "Bold":         { family: "'Geist', sans-serif",       style: "normal", useWeight: true  },
+    "Bold italic":  { family: "'Instrument Serif', serif", style: "italic", useWeight: true  }
+  };
+
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+    React.useEffect(() => {
+      const root = document.documentElement;
+      const def = TREATMENTS[t.treatment] || TREATMENTS["Serif italic"];
+      const fam = def.family;
+      const sty = def.style;
+      const wgt = def.useWeight ? String(t.weight) : "400";
+      const trk = def.useWeight ? (t.tracking + "em") : "0em";
+
+      const keys = ["--ser-family", "--ser-style", "--ser-weight", "--ser-tracking",
+                    "--a48-family", "--a48-style", "--a48-weight", "--a48-tracking"];
+      keys.forEach((k) => root.style.removeProperty(k));
+
+      const prefix = (t.scope === "All serif accents") ? "--ser-" : "--a48-";
+      root.style.setProperty(prefix + "family", fam);
+      root.style.setProperty(prefix + "style", sty);
+      root.style.setProperty(prefix + "weight", wgt);
+      root.style.setProperty(prefix + "tracking", trk);
+    }, [t.treatment, t.scope, t.weight, t.tracking]);
+
+    const isBold = (TREATMENTS[t.treatment] || {}).useWeight;
+
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection label={'The blue "48 hours" accent'} />
+        <TweakRadio label="Treatment" value={t.treatment}
+          options={["Serif italic", "Bold", "Bold italic"]}
+          onChange={(v) => setTweak('treatment', v)} />
+        {isBold && (
+          <TweakSlider label="Weight" value={t.weight} min={500} max={800} step={100}
+            onChange={(v) => setTweak('weight', v)} />
+        )}
+        {isBold && (
+          <TweakSlider label="Tracking" value={t.tracking} min={-0.04} max={0.02} step={0.005} unit="em"
+            onChange={(v) => setTweak('tracking', v)} />
+        )}
+        <TweakSection label="Scope" />
+        <TweakRadio label="Apply to" value={t.scope}
+          options={['Just "48 hours"', "All serif accents"]}
+          onChange={(v) => setTweak('scope', v)} />
+      </TweaksPanel>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('tweak-root')).render(<App />);
+</script>
+
+</body>
+</html>

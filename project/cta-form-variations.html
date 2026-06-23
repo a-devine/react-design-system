@@ -1,0 +1,1243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Devine Edge — CTA Form Variations</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+
+<style>
+  :root {
+    --ink:       #1A1A1A;
+    --ink2:      #2A2520;
+    --mute:      #6B635A;
+    --mute2:     #8F8579;
+    --paper:     #F8F4EC;
+    --paper2:    #FBF8F1;
+    --card:      #FFFFFF;
+    --line:      #E8E0CF;
+    --line2:     #D8CDB4;
+    --blue:      #1F8FFF;
+    --blue50:    #E3EFFF;
+    --blue100:   #B9D7FB;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); }
+  body {
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(rgba(26,26,26,0.025) 1px, transparent 1.2px);
+    background-size: 3px 3px;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+  }
+
+  .serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .mono  { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .num   { font-variant-numeric: tabular-nums; }
+
+  /* ===== Page chrome ===== */
+  header.page {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 32px 24px;
+  }
+  header.page .kicker {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--blue);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  header.page .kicker::before {
+    content: ''; width: 20px; height: 1px; background: var(--blue100);
+  }
+  header.page h1 {
+    margin: 14px 0 8px;
+    font-size: 44px; font-weight: 500;
+    letter-spacing: -0.032em; line-height: 1.05;
+    max-width: 760px;
+  }
+  header.page h1 .serif { color: var(--blue); }
+  header.page p {
+    margin: 0; max-width: 620px;
+    font-size: 15.5px; line-height: 1.55; color: var(--mute);
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 24px 32px 80px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  /* ===== Variation card frame ===== */
+  .variant {
+    position: relative;
+    border-radius: 24px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 12px 32px -20px rgba(26,26,26,0.16);
+  }
+  .variant-header {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+    padding: 22px 26px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper2);
+  }
+  .variant-meta { display: flex; align-items: center; gap: 14px; }
+  .variant-meta .num {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.16em; color: var(--mute2);
+    padding: 4px 8px; border: 1px solid var(--line); border-radius: 999px;
+    background: var(--card);
+  }
+  .variant-meta h2 {
+    margin: 0; font-size: 19px; font-weight: 500; letter-spacing: -0.014em;
+  }
+  .variant-meta .tag {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--blue);
+  }
+  .variant-header .desc {
+    font-size: 13px; line-height: 1.5; color: var(--mute);
+    max-width: 360px; text-align: right;
+  }
+  .replay-btn {
+    appearance: none; background: var(--card); border: 1px solid var(--line);
+    border-radius: 999px; padding: 7px 12px 7px 10px;
+    font: inherit; font-size: 12px; color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .replay-btn:hover { border-color: var(--blue100); background: var(--blue50); }
+  .replay-btn svg { width: 12px; height: 12px; }
+
+  .variant-stage {
+    position: relative;
+    background:
+      linear-gradient(to right, rgba(26,26,26,0.045) 1px, transparent 1px) 0 0 / 18px 18px,
+      linear-gradient(to bottom, rgba(26,26,26,0.045) 1px, transparent 1px) 0 0 / 18px 18px,
+      var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    padding: 56px 24px;
+    min-height: 540px;
+  }
+
+  /* ===== Shared component primitives ===== */
+  .ll-wordmark-img { display: block; height: auto; }
+  .ll-mark-svg { display: block; width: 100%; height: 100%; }
+  .ll-eyebrow {
+    font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--blue);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .ll-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--blue100); }
+
+  .ll-input {
+    appearance: none; width: 100%;
+    background: var(--paper2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 12px 14px;
+    font: inherit; font-size: 14.5px; color: var(--ink);
+    transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .ll-input::placeholder { color: var(--mute2); }
+  .ll-input:focus {
+    outline: none; background: #fff; border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(31,143,255,0.12);
+  }
+  .ll-label {
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--mute2); display: block; margin-bottom: 6px;
+  }
+  .ll-btn {
+    appearance: none; border: none; background: var(--ink);
+    color: var(--paper2); font: inherit; font-weight: 500; font-size: 14px;
+    padding: 12px 20px; border-radius: 999px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .12s ease, background .2s ease;
+  }
+  .ll-btn:hover { background: var(--blue); }
+  .ll-btn:active { transform: scale(0.98); }
+  .ll-btn svg { width: 14px; height: 14px; }
+
+  /* ============================================================
+     V1 — SPLIT  (dark plate + form, mark drops, wordmark wipes)
+     ============================================================ */
+  .v1 .stage-inner {
+    position: relative;
+    width: 800px; max-width: 100%; height: 420px;
+  }
+  .v1 .plate {
+    position: absolute; inset: 0 auto 0 0; width: 340px; height: 100%;
+    background: var(--ink); color: var(--paper2);
+    border-radius: 20px;
+    padding: 30px 28px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    overflow: hidden; z-index: 2;
+    opacity: 0; transform: scale(0) translateX(115px);
+    transform-origin: center center;
+    box-shadow: 0 1px 0 rgba(26,26,26,0.06), 0 30px 60px -28px rgba(26,26,26,0.45);
+  }
+  .v1 .plate::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 22px 22px;
+    pointer-events: none;
+  }
+  .v1 .plate::after {
+    content: ''; position: absolute;
+    width: 240px; height: 240px; bottom: -100px; right: -90px;
+    background: radial-gradient(circle at 30% 30%, rgba(31,143,255,0.55), rgba(31,143,255,0) 65%);
+    filter: blur(6px); pointer-events: none;
+  }
+  .v1 .plate-top {
+    position: relative; display: flex; align-items: center; gap: 10px;
+    font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(251,248,241,0.6);
+  }
+  .v1 .plate-top .pulse {
+    width: 6px; height: 6px; border-radius: 999px; background: var(--blue);
+    box-shadow: 0 0 0 4px rgba(31,143,255,0.18);
+  }
+  .v1 .plate-mark {
+    position: absolute; top: 30px; right: 28px;
+    width: 36px; height: 38px;
+    opacity: 0;
+  }
+  .v1 .plate-mark svg { fill: var(--blue); }
+  .v1 .plate-wordmark-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 28px;
+    clip-path: inset(0 100% 0 0);
+    /* clip-path animates left to right reveal */
+  }
+  .v1 .plate-wordmark {
+    height: 28px;
+    filter: invert(1) brightness(2);
+  }
+  .v1 .plate-tagline {
+    position: relative;
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    font-size: 22px; line-height: 1.1; color: var(--blue);
+    opacity: 0; transform: translateY(8px);
+    margin-top: 6px;
+  }
+  .v1 .plate-foot {
+    position: relative;
+    font-size: 12px; line-height: 1.5;
+    color: rgba(251,248,241,0.65);
+    max-width: 230px;
+  }
+  .v1 .plate-foot strong {
+    display: block; color: var(--paper2); font-weight: 500;
+    margin-bottom: 4px; letter-spacing: -0.01em;
+  }
+  .v1 .form {
+    position: absolute; inset: 0 0 0 auto; width: 460px; height: 100%;
+    background: var(--card); border: 1px solid var(--line); border-left: none;
+    border-radius: 0 20px 20px 0;
+    padding: 30px 32px 28px;
+    display: flex; flex-direction: column;
+    opacity: 0; transform: scale(0); transform-origin: left center;
+    box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 30px 60px -28px rgba(26,26,26,0.30);
+  }
+  .v1 .form h3 {
+    margin: 10px 0 4px; font-size: 26px; font-weight: 500;
+    letter-spacing: -0.022em; line-height: 1.1;
+  }
+  .v1 .form h3 .serif { color: var(--blue); }
+  .v1 .form .sub {
+    font-size: 13.5px; color: var(--mute); line-height: 1.55; margin: 0 0 16px;
+  }
+  .v1 .form .field { margin-bottom: 12px; }
+  .v1 .form .submit {
+    margin-top: auto; padding-top: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .v1 .form .fine { font-size: 11px; color: var(--mute2); max-width: 180px; line-height: 1.4; }
+
+  /* ============================================================
+     V2 — SEAL  (vertical single column, mark stamp)
+     ============================================================ */
+  .v2 .stage-inner {
+    position: relative;
+    width: 460px; max-width: 100%;
+    border-radius: 22px;
+    background: var(--card); border: 1px solid var(--line);
+    padding: 36px 36px 30px;
+    box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 30px 60px -28px rgba(26,26,26,0.20);
+  }
+  .v2 .seal {
+    width: 78px; height: 82px; margin: 0 auto 14px;
+    display: grid; place-items: center; position: relative;
+    opacity: 0; transform: scale(2.4) rotate(-22deg);
+  }
+  .v2 .seal::before {
+    content: ''; position: absolute; inset: -14px;
+    border: 1px solid var(--blue100); border-radius: 999px;
+    opacity: 0;
+  }
+  .v2 .seal svg { width: 100%; height: 100%; }
+  .v2 .seal svg polygon:first-child { fill: var(--ink); }
+  .v2 .seal svg polygon:last-child { fill: var(--blue); }
+  .v2 .word-wrap {
+    text-align: center; overflow: hidden; padding: 4px 0;
+    opacity: 0; transform: translateY(8px);
+  }
+  .v2 .word-wrap img { height: 26px; margin: 0 auto; }
+  .v2 .stage-inner .tag {
+    text-align: center; margin: 8px 0 6px;
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    color: var(--blue); font-size: 18px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .v2 .rule {
+    height: 1px; background: var(--line); margin: 22px 0 20px;
+    opacity: 0; transform: scaleX(0);
+  }
+  .v2 .lede {
+    text-align: center; font-size: 19px; line-height: 1.3;
+    letter-spacing: -0.014em; margin: 0 0 18px; max-width: 320px; margin-inline: auto;
+    opacity: 0;
+  }
+  .v2 .lede .serif { color: var(--blue); }
+  .v2 .field { margin-bottom: 12px; opacity: 0; transform: translateY(10px); }
+  .v2 .footer-row {
+    margin-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    opacity: 0; transform: translateY(10px);
+  }
+  .v2 .footer-row .fine { font-size: 11px; color: var(--mute2); }
+  .v2 .footer-row .ll-btn { padding: 11px 18px; }
+
+  /* ============================================================
+     V3 — INVERTED  (paper plate, dark form, mark spins)
+     ============================================================ */
+  .v3 .stage-inner {
+    position: relative; width: 820px; max-width: 100%; height: 440px;
+  }
+  .v3 .plate {
+    position: absolute; inset: 0 auto 0 0; width: 380px; height: 100%;
+    background: var(--paper2); border: 1px solid var(--line);
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    padding: 32px 30px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    overflow: hidden;
+    opacity: 0; transform: translateX(-40px);
+  }
+  .v3 .plate::before {
+    content: ''; position: absolute;
+    width: 280px; height: 280px; bottom: -120px; left: -100px;
+    background: radial-gradient(circle, rgba(31,143,255,0.22), rgba(31,143,255,0) 70%);
+    filter: blur(4px);
+  }
+  .v3 .plate-top {
+    position: relative; display: flex; align-items: center; gap: 10px;
+    font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--mute2);
+  }
+  .v3 .plate-top .pulse {
+    width: 6px; height: 6px; border-radius: 999px; background: var(--blue);
+    box-shadow: 0 0 0 4px rgba(31,143,255,0.18);
+  }
+  .v3 .plate-center {
+    position: relative;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 18px;
+  }
+  .v3 .plate-mark {
+    width: 52px; height: 55px;
+    opacity: 0;
+  }
+  .v3 .plate-mark svg polygon:first-child { fill: var(--ink); }
+  .v3 .plate-mark svg polygon:last-child { fill: var(--blue); }
+  .v3 .plate-wordmark-wrap {
+    height: 32px; overflow: hidden;
+    opacity: 0; transform: scale(0.9);
+  }
+  .v3 .plate-wordmark { height: 32px; }
+  .v3 .plate-tagline {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    font-size: 22px; line-height: 1.15; color: var(--blue);
+    max-width: 280px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .v3 .plate-foot {
+    position: relative; font-size: 12px; color: var(--mute);
+    line-height: 1.55; max-width: 240px;
+    opacity: 0;
+  }
+  .v3 .form {
+    position: absolute; inset: 0 0 0 auto; width: 440px; height: 100%;
+    background: var(--ink); color: var(--paper2);
+    border-radius: 0 20px 20px 0;
+    padding: 32px 30px 28px;
+    display: flex; flex-direction: column;
+    opacity: 0; transform: translateX(40px);
+    overflow: hidden;
+  }
+  .v3 .form::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 22px 22px;
+    pointer-events: none;
+  }
+  .v3 .form .ll-eyebrow { color: var(--blue); }
+  .v3 .form .ll-eyebrow::before { background: rgba(31,143,255,0.4); }
+  .v3 .form h3 {
+    position: relative;
+    margin: 12px 0 6px; font-size: 26px; font-weight: 500;
+    letter-spacing: -0.022em; line-height: 1.1; color: var(--paper2);
+  }
+  .v3 .form h3 .serif { color: var(--blue); }
+  .v3 .form .sub {
+    position: relative;
+    font-size: 13.5px; color: rgba(251,248,241,0.65);
+    line-height: 1.55; margin: 0 0 16px;
+  }
+  .v3 .form .field { position: relative; margin-bottom: 12px; }
+  .v3 .form .ll-label { color: rgba(251,248,241,0.55); }
+  .v3 .form .ll-input {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--paper2);
+  }
+  .v3 .form .ll-input::placeholder { color: rgba(251,248,241,0.4); }
+  .v3 .form .ll-input:focus {
+    background: rgba(255,255,255,0.10);
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(31,143,255,0.20);
+  }
+  .v3 .form .submit {
+    position: relative;
+    margin-top: auto; padding-top: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .v3 .form .fine { font-size: 11px; color: rgba(251,248,241,0.5); max-width: 180px; line-height: 1.4; }
+  .v3 .form .ll-btn {
+    background: var(--blue); color: var(--paper2);
+  }
+  .v3 .form .ll-btn:hover { background: var(--paper2); color: var(--ink); }
+
+  /* ============================================================
+     V4 — INLINE  (minimal, wordmark wipes, inline email row)
+     ============================================================ */
+  .v4 .stage-inner {
+    width: 720px; max-width: 100%; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 22px;
+  }
+  .v4 .top-row {
+    display: inline-flex; align-items: center; gap: 14px;
+    opacity: 0;
+  }
+  .v4 .top-row .mark { width: 28px; height: 30px; opacity: 0; transform: translateY(-30px); }
+  .v4 .top-row .mark svg polygon:first-child { fill: var(--ink); }
+  .v4 .top-row .mark svg polygon:last-child { fill: var(--blue); }
+  .v4 .top-row .ll-eyebrow { opacity: 0; }
+  .v4 .wordmark-wrap {
+    overflow: hidden;
+    height: 56px;
+    width: 100%;
+    display: flex; justify-content: center;
+    clip-path: inset(0 50% 0 50%);
+  }
+  .v4 .wordmark-wrap img { height: 56px; }
+  .v4 .stage-inner h2 {
+    margin: 0; font-size: 34px; font-weight: 500;
+    letter-spacing: -0.026em; line-height: 1.1; max-width: 560px;
+    opacity: 0; transform: translateY(8px);
+  }
+  .v4 .stage-inner h2 .serif { color: var(--blue); }
+  .v4 .sub {
+    margin: -4px 0 0; font-size: 14.5px; color: var(--mute);
+    line-height: 1.55; max-width: 460px;
+    opacity: 0;
+  }
+  .v4 .inline-form {
+    margin-top: 6px;
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 6px 6px 18px;
+    width: 100%; max-width: 460px;
+    opacity: 0; transform: translateY(14px);
+    box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 10px 24px -16px rgba(26,26,26,0.18);
+  }
+  .v4 .inline-form input {
+    flex: 1; border: none; background: transparent; outline: none;
+    font: inherit; font-size: 14.5px; color: var(--ink); padding: 8px 0;
+  }
+  .v4 .inline-form input::placeholder { color: var(--mute2); }
+  .v4 .inline-form .ll-btn { padding: 11px 18px; }
+  .v4 .fine {
+    font-size: 11.5px; color: var(--mute2);
+    opacity: 0;
+  }
+
+  /* ===== Smaller screens ===== */
+  @media (max-width: 900px) {
+    .v1 .stage-inner, .v3 .stage-inner { width: 100%; height: auto; min-height: 700px; }
+    .v1 .plate, .v3 .plate, .v1 .form, .v3 .form {
+      position: relative; inset: auto; width: 100%; height: auto;
+    }
+    .v1 .stage-inner, .v3 .stage-inner { display: flex; flex-direction: column; }
+    .v1 .plate, .v3 .plate { border-radius: 20px 20px 0 0; }
+    .v3 .plate { border-right: 1px solid var(--line); border-bottom: none; }
+    .v1 .form, .v3 .form { border-radius: 0 0 20px 20px; border: 1px solid var(--line); border-top: none; }
+    .v3 .form { border-color: var(--ink); }
+    header.page { padding: 36px 20px 16px; }
+    header.page h1 { font-size: 32px; }
+    main { padding: 16px 20px 60px; gap: 24px; }
+    .variant-header { flex-direction: column; align-items: flex-start; }
+    .variant-header .desc { text-align: left; }
+    .variant-stage { padding: 36px 16px; min-height: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <template id="__bundler_thumbnail" data-bg-color="#1A1A1A">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="400" fill="#1A1A1A" />
+      <g transform="translate(120 105)">
+        <polygon points="0,0 156,0 99,31 35,31 35,137 105,138 156,170 0,170" fill="#FBF8F1" />
+        <polygon points="73,86 158,50 158,120" fill="#1F8FFF" />
+      </g>
+    </svg>
+  </template>
+
+  <header class="page">
+    <span class="kicker">CTA Form · Exploration</span>
+    <h1>Four directions for the audit signup, <span class="serif">one brand voice.</span></h1>
+    <p>All four variations share the Devine Edge wordmark, electric-blue accent, and the same audit copy — what changes is the chrome, color treatment, and how the entrance reads. Each variation auto-plays when scrolled into view; tap <strong>Replay</strong> to retrigger.</p>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         V1 — SPLIT
+         ============================================================ -->
+    <article class="variant v1" data-variant="v1">
+      <div class="variant-header">
+        <div class="variant-meta">
+          <span class="num">01</span>
+          <h2>Split</h2>
+          <span class="tag">Spread &amp; collapse</span>
+        </div>
+        <div style="display:flex; align-items:flex-end; gap:14px; flex-direction:column;">
+          <p class="desc">Dark plate slides in from center, form scales in alongside, mark drops from above, wordmark wipes left → right.</p>
+          <button class="replay-btn" type="button" data-replay="v1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            Replay
+          </button>
+        </div>
+      </div>
+
+      <div class="variant-stage">
+        <div class="stage-inner">
+
+          <div class="plate" data-plate>
+            <div class="plate-top"><span class="pulse"></span>Devine Edge</div>
+
+            <div class="plate-mark" data-plate-mark>
+              <svg viewBox="0 0 118 126" class="ll-mark-svg">
+                <polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon>
+                <polygon points="54,63 116,37 116,88"></polygon>
+              </svg>
+            </div>
+
+            <div>
+              <div class="plate-wordmark-wrap" data-plate-wordmark-wrap>
+                <img src="assets/wordmark.svg" alt="Devine Edge" class="plate-wordmark" />
+              </div>
+              <div class="plate-tagline" data-plate-tagline>the edge that compounds.</div>
+            </div>
+
+            <div class="plate-foot">
+              <strong>Free AI Visibility Audit</strong>
+              See where you appear in ChatGPT, Gemini, Perplexity &amp; Google AI Overviews — and where you don't.
+            </div>
+          </div>
+
+          <div class="form" data-form>
+            <span class="ll-eyebrow">Free · 90-second sign-up</span>
+            <h3>Get your audit <span class="serif">in 48 hours.</span></h3>
+            <p class="sub">No call required. We send a 12-page diagnostic of your AI search, Google, and lead-leak signals.</p>
+
+            <form onsubmit="event.preventDefault();" autocomplete="off">
+              <div class="field"><label class="ll-label" for="v1-biz">Business</label><input class="ll-input" id="v1-biz" type="text" placeholder="e.g. Northgate Med Spa" /></div>
+              <div class="field"><label class="ll-label" for="v1-site">Website</label><input class="ll-input" id="v1-site" type="url" placeholder="https://" /></div>
+              <div class="field"><label class="ll-label" for="v1-email">Email</label><input class="ll-input" id="v1-email" type="email" placeholder="you@business.com" /></div>
+
+              <div class="submit">
+                <span class="fine">We never share or sell your data.</span>
+                <button class="ll-btn" type="submit">
+                  Get my audit
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ============================================================
+         V2 — SEAL
+         ============================================================ -->
+    <article class="variant v2" data-variant="v2">
+      <div class="variant-header">
+        <div class="variant-meta">
+          <span class="num">02</span>
+          <h2>Seal</h2>
+          <span class="tag">Stamp &amp; settle</span>
+        </div>
+        <div style="display:flex; align-items:flex-end; gap:14px; flex-direction:column;">
+          <p class="desc">Single column. The mark stamps in like a wax seal — large, rotated, then snapping to size — while fields cascade in below.</p>
+          <button class="replay-btn" type="button" data-replay="v2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            Replay
+          </button>
+        </div>
+      </div>
+
+      <div class="variant-stage">
+        <div class="stage-inner">
+          <div class="seal" data-seal>
+            <svg viewBox="0 0 118 126">
+              <polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon>
+              <polygon points="54,63 116,37 116,88"></polygon>
+            </svg>
+          </div>
+
+          <div class="word-wrap" data-word>
+            <img src="assets/wordmark.svg" alt="Devine Edge" />
+          </div>
+
+          <div class="tag" data-tag>the edge that compounds.</div>
+
+          <div class="rule" data-rule></div>
+
+          <p class="lede" data-lede>Claim your <span class="serif">free AI visibility audit.</span></p>
+
+          <form onsubmit="event.preventDefault();" autocomplete="off">
+            <div class="field" data-field><label class="ll-label" for="v2-biz">Business</label><input class="ll-input" id="v2-biz" type="text" placeholder="e.g. Northgate Med Spa" /></div>
+            <div class="field" data-field><label class="ll-label" for="v2-email">Email</label><input class="ll-input" id="v2-email" type="email" placeholder="you@business.com" /></div>
+
+            <div class="footer-row" data-field>
+              <span class="fine">We reply in 48 hours.</span>
+              <button class="ll-btn" type="submit">
+                Get my audit
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ============================================================
+         V3 — INVERTED
+         ============================================================ -->
+    <article class="variant v3" data-variant="v3">
+      <div class="variant-header">
+        <div class="variant-meta">
+          <span class="num">03</span>
+          <h2>Inverted</h2>
+          <span class="tag">Paper &amp; ink trade places</span>
+        </div>
+        <div style="display:flex; align-items:flex-end; gap:14px; flex-direction:column;">
+          <p class="desc">Paper plate, dark form. The mark and wordmark anchor the brand on the warm side; the form panel feels heavier and more deliberate.</p>
+          <button class="replay-btn" type="button" data-replay="v3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            Replay
+          </button>
+        </div>
+      </div>
+
+      <div class="variant-stage">
+        <div class="stage-inner">
+
+          <div class="plate" data-plate>
+            <div class="plate-top"><span class="pulse"></span>Devine Edge · Operator-led</div>
+
+            <div class="plate-center">
+              <div class="plate-mark" data-plate-mark>
+                <svg viewBox="0 0 118 126" class="ll-mark-svg">
+                  <polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon>
+                  <polygon points="54,63 116,37 116,88"></polygon>
+                </svg>
+              </div>
+              <div class="plate-wordmark-wrap" data-plate-wordmark-wrap>
+                <img src="assets/wordmark.svg" alt="Devine Edge" class="plate-wordmark" />
+              </div>
+              <div class="plate-tagline" data-plate-tagline>the operating system for modern local business growth.</div>
+            </div>
+
+            <p class="plate-foot" data-plate-foot>
+              We build the layer that makes you findable, trustable, and chooseable — and we report on a number you care about.
+            </p>
+          </div>
+
+          <div class="form" data-form>
+            <span class="ll-eyebrow">Free audit</span>
+            <h3>See exactly where <span class="serif">you're invisible.</span></h3>
+            <p class="sub">A 12-page diagnostic across AI search, Google, your site, and your follow-up loop.</p>
+
+            <form onsubmit="event.preventDefault();" autocomplete="off">
+              <div class="field"><label class="ll-label" for="v3-biz">Business</label><input class="ll-input" id="v3-biz" type="text" placeholder="e.g. Northgate Med Spa" /></div>
+              <div class="field"><label class="ll-label" for="v3-email">Email</label><input class="ll-input" id="v3-email" type="email" placeholder="you@business.com" /></div>
+
+              <div class="submit">
+                <span class="fine">No call required.</span>
+                <button class="ll-btn" type="submit">
+                  Send my audit
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ============================================================
+         V4 — INLINE
+         ============================================================ -->
+    <article class="variant v4" data-variant="v4">
+      <div class="variant-header">
+        <div class="variant-meta">
+          <span class="num">04</span>
+          <h2>Inline</h2>
+          <span class="tag">Type-led, single field</span>
+        </div>
+        <div style="display:flex; align-items:flex-end; gap:14px; flex-direction:column;">
+          <p class="desc">No card chrome. Wordmark opens outward from center, mark drops from above, an inline email row settles in below. Lightest possible footprint.</p>
+          <button class="replay-btn" type="button" data-replay="v4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            Replay
+          </button>
+        </div>
+      </div>
+
+      <div class="variant-stage">
+        <div class="stage-inner">
+          <div class="top-row" data-toprow>
+            <div class="mark" data-mark>
+              <svg viewBox="0 0 118 126" class="ll-mark-svg">
+                <polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon>
+                <polygon points="54,63 116,37 116,88"></polygon>
+              </svg>
+            </div>
+            <span class="ll-eyebrow" data-eyebrow>Free AI Visibility Audit</span>
+          </div>
+
+          <div class="wordmark-wrap" data-word>
+            <img src="assets/wordmark.svg" alt="Devine Edge" />
+          </div>
+
+          <h2 data-h2>Become the Business <span class="serif">AI recommends.</span></h2>
+          <p class="sub" data-sub>Drop your email. We send a 12-page audit of your AI search, Google, and lead-leak signals.</p>
+
+          <div class="inline-form" data-form>
+            <input type="email" placeholder="you@business.com" />
+            <button class="ll-btn" type="button">
+              <span data-btn>Get my audit</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+          <span class="fine" data-fine>We reply in 48 hours.</span>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+<script>
+  // ============================================================
+  // Variation animations
+  // ============================================================
+
+  // --- V1: SPLIT ---
+  function playV1() {
+    const root = document.querySelector('.v1');
+    if (!root) return;
+
+    anime.set(root.querySelector('[data-plate]'),          { opacity: 0, scale: 0, translateX: 115 });
+    anime.set(root.querySelector('[data-form]'),           { opacity: 0, scale: 0 });
+    anime.set(root.querySelector('[data-plate-mark]'),     { opacity: 0, translateY: -240 });
+    anime.set(root.querySelector('[data-plate-wordmark-wrap]'), { clipPath: 'inset(0 100% 0 0)' });
+    anime.set(root.querySelector('[data-plate-tagline]'),  { opacity: 0, translateY: 8 });
+
+    const tl = anime.timeline();
+    tl.add({
+      targets: root.querySelector('[data-plate]'),
+      translateX: [115, 115],
+      scale: [0, 1.06],
+      opacity: [0, 1],
+      delay: 200, duration: 520, easing: 'easeOutBack',
+    })
+    .add({
+      targets: root.querySelector('[data-plate]'),
+      translateX: [115, 0],
+      scale: [1.06, 1],
+      easing: 'easeOutSine',
+      duration: 360,
+    })
+    .add({
+      targets: root.querySelector('[data-form]'),
+      scale: [0, 1],
+      opacity: [0, 1],
+      easing: 'easeOutBack',
+      duration: 620,
+      offset: '-=560',
+    })
+    .add({
+      targets: root.querySelector('[data-plate-mark]'),
+      opacity: [0, 1],
+      translateY: [-240, 0],
+      easing: 'easeOutQuad',
+      duration: 560,
+      offset: '-=300',
+    })
+    .add({
+      targets: root.querySelector('[data-plate-wordmark-wrap]'),
+      clipPath: ['inset(0 100% 0 0)', 'inset(0 0% 0 0)'],
+      easing: 'easeOutCubic',
+      duration: 700,
+      offset: '-=440',
+    })
+    .add({
+      targets: root.querySelector('[data-plate-tagline]'),
+      opacity: [0, 1],
+      translateY: [8, 0],
+      easing: 'easeOutCubic',
+      duration: 520,
+      offset: '-=300',
+    });
+  }
+
+  // --- V2: SEAL ---
+  function playV2() {
+    const root = document.querySelector('.v2');
+    if (!root) return;
+
+    anime.set(root.querySelector('[data-seal]'), { opacity: 0, scale: 2.4, rotate: -22 });
+    anime.set(root.querySelector('[data-word]'), { opacity: 0, translateY: 8 });
+    anime.set(root.querySelector('[data-tag]'),  { opacity: 0, translateY: 8 });
+    anime.set(root.querySelector('[data-rule]'), { opacity: 0, scaleX: 0 });
+    anime.set(root.querySelector('[data-lede]'), { opacity: 0 });
+    anime.set(root.querySelectorAll('[data-field]'), { opacity: 0, translateY: 10 });
+
+    const tl = anime.timeline();
+    tl.add({
+      targets: root.querySelector('[data-seal]'),
+      opacity: [0, 1],
+      scale:   [2.4, 1],
+      rotate:  [-22, 0],
+      easing:  'easeOutExpo',
+      duration: 700,
+      delay: 200,
+    })
+    .add({
+      targets: root.querySelector('[data-word]'),
+      opacity: [0, 1],
+      translateY: [8, 0],
+      easing: 'easeOutCubic',
+      duration: 460,
+      offset: '-=260',
+    })
+    .add({
+      targets: root.querySelector('[data-tag]'),
+      opacity: [0, 1],
+      translateY: [8, 0],
+      easing: 'easeOutCubic',
+      duration: 360,
+      offset: '-=300',
+    })
+    .add({
+      targets: root.querySelector('[data-rule]'),
+      opacity: [0, 1],
+      scaleX:  [0, 1],
+      easing:  'easeOutCubic',
+      duration: 460,
+      offset: '-=180',
+    })
+    .add({
+      targets: root.querySelector('[data-lede]'),
+      opacity: [0, 1],
+      easing: 'easeOutCubic',
+      duration: 360,
+      offset: '-=300',
+    })
+    .add({
+      targets: root.querySelectorAll('[data-field]'),
+      opacity: [0, 1],
+      translateY: [10, 0],
+      easing: 'easeOutCubic',
+      duration: 460,
+      delay: anime.stagger(90),
+      offset: '-=200',
+    });
+  }
+
+  // --- V3: INVERTED ---
+  function playV3() {
+    const root = document.querySelector('.v3');
+    if (!root) return;
+
+    anime.set(root.querySelector('[data-plate]'),               { opacity: 0, translateX: -40 });
+    anime.set(root.querySelector('[data-form]'),                { opacity: 0, translateX: 40 });
+    anime.set(root.querySelector('[data-plate-mark]'),          { opacity: 0, rotate: -180, scale: 0.4 });
+    anime.set(root.querySelector('[data-plate-wordmark-wrap]'), { opacity: 0, scale: 0.9 });
+    anime.set(root.querySelector('[data-plate-tagline]'),       { opacity: 0, translateY: 8 });
+    anime.set(root.querySelector('[data-plate-foot]'),          { opacity: 0 });
+
+    const tl = anime.timeline();
+    tl.add({
+      targets: [root.querySelector('[data-plate]'), root.querySelector('[data-form]')],
+      opacity: [0, 1],
+      translateX: 0,
+      easing: 'easeOutCubic',
+      duration: 700,
+      delay: anime.stagger(60, { start: 200 }),
+    })
+    .add({
+      targets: root.querySelector('[data-plate-mark]'),
+      opacity: [0, 1],
+      rotate: [-180, 0],
+      scale: [0.4, 1],
+      easing: 'easeOutBack',
+      duration: 760,
+      offset: '-=420',
+    })
+    .add({
+      targets: root.querySelector('[data-plate-wordmark-wrap]'),
+      opacity: [0, 1],
+      scale: [0.9, 1],
+      easing: 'easeOutCubic',
+      duration: 560,
+      offset: '-=480',
+    })
+    .add({
+      targets: root.querySelector('[data-plate-tagline]'),
+      opacity: [0, 1],
+      translateY: [8, 0],
+      easing: 'easeOutCubic',
+      duration: 460,
+      offset: '-=320',
+    })
+    .add({
+      targets: root.querySelector('[data-plate-foot]'),
+      opacity: [0, 1],
+      easing: 'easeOutCubic',
+      duration: 460,
+      offset: '-=300',
+    });
+  }
+
+  // --- V4: INLINE ---
+  function playV4() {
+    const root = document.querySelector('.v4');
+    if (!root) return;
+
+    anime.set(root.querySelector('[data-toprow]'),  { opacity: 0 });
+    anime.set(root.querySelector('[data-mark]'),    { opacity: 0, translateY: -30 });
+    anime.set(root.querySelector('[data-eyebrow]'), { opacity: 0 });
+    anime.set(root.querySelector('[data-word]'),    { clipPath: 'inset(0 50% 0 50%)' });
+    anime.set(root.querySelector('[data-h2]'),      { opacity: 0, translateY: 8 });
+    anime.set(root.querySelector('[data-sub]'),     { opacity: 0 });
+    anime.set(root.querySelector('[data-form]'),    { opacity: 0, translateY: 14 });
+    anime.set(root.querySelector('[data-fine]'),    { opacity: 0 });
+
+    const tl = anime.timeline();
+    tl.add({
+      targets: root.querySelector('[data-word]'),
+      clipPath: ['inset(0 50% 0 50%)', 'inset(0 0% 0 0%)'],
+      easing: 'easeOutCubic',
+      duration: 760,
+      delay: 200,
+    })
+    .add({
+      targets: root.querySelector('[data-toprow]'),
+      opacity: [0, 1],
+      easing: 'linear',
+      duration: 20,
+      offset: '-=360',
+    })
+    .add({
+      targets: root.querySelector('[data-mark]'),
+      opacity: [0, 1],
+      translateY: [-30, 0],
+      easing: 'easeOutBack',
+      duration: 520,
+      offset: '-=20',
+    })
+    .add({
+      targets: root.querySelector('[data-eyebrow]'),
+      opacity: [0, 1],
+      easing: 'easeOutCubic',
+      duration: 360,
+      offset: '-=300',
+    })
+    .add({
+      targets: root.querySelector('[data-h2]'),
+      opacity: [0, 1],
+      translateY: [8, 0],
+      easing: 'easeOutCubic',
+      duration: 500,
+      offset: '-=200',
+    })
+    .add({
+      targets: root.querySelector('[data-sub]'),
+      opacity: [0, 1],
+      easing: 'easeOutCubic',
+      duration: 460,
+      offset: '-=280',
+    })
+    .add({
+      targets: root.querySelector('[data-form]'),
+      opacity: [0, 1],
+      translateY: [14, 0],
+      easing: 'easeOutBack',
+      duration: 620,
+      offset: '-=240',
+    })
+    .add({
+      targets: root.querySelector('[data-fine]'),
+      opacity: [0, 1],
+      easing: 'easeOutCubic',
+      duration: 360,
+      offset: '-=200',
+    });
+  }
+
+  const players = { v1: playV1, v2: playV2, v3: playV3, v4: playV4 };
+
+  // Replay buttons
+  document.querySelectorAll('[data-replay]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-replay');
+      if (players[key]) players[key]();
+    });
+  });
+
+  // Trigger on scroll-into-view (once per visit per variant)
+  async function init() {
+    try { await document.fonts.ready; } catch (e) {}
+    const variants = document.querySelectorAll('.variant');
+    const seen = new Set();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !seen.has(e.target.dataset.variant)) {
+          seen.add(e.target.dataset.variant);
+          const key = e.target.dataset.variant;
+          if (players[key]) players[key]();
+        }
+      });
+    }, { threshold: 0.35 });
+    variants.forEach((v) => io.observe(v));
+  }
+  init();
+</script>
+
+<!-- ============================================================
+     TWEAKS — 04 · Inline copy controls
+     ============================================================ -->
+<style>
+  #tw-panel {
+    position: fixed; right: 20px; bottom: 20px; z-index: 9999;
+    width: 320px; max-width: calc(100vw - 40px);
+    background: var(--card); color: var(--ink);
+    border: 1px solid var(--line2); border-radius: 14px;
+    box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 24px 60px -24px rgba(26,26,26,0.34);
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    display: none; overflow: hidden;
+  }
+  #tw-panel.open { display: block; }
+  #tw-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 14px; border-bottom: 1px solid var(--line);
+    cursor: grab; user-select: none;
+  }
+  #tw-head.drag { cursor: grabbing; }
+  #tw-head .title {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--blue); display: inline-flex; align-items: center; gap: 9px;
+  }
+  #tw-head .title::before { content: ''; width: 16px; height: 1px; background: var(--blue100); }
+  #tw-close {
+    border: none; background: transparent; cursor: pointer; color: var(--mute2);
+    width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center;
+    transition: background .15s ease, color .15s ease;
+  }
+  #tw-close:hover { background: var(--paper); color: var(--ink); }
+  #tw-body { padding: 6px 14px 14px; max-height: 70vh; overflow-y: auto; }
+  .tw-row { padding: 11px 0 2px; }
+  .tw-row label {
+    display: block; font-size: 11.5px; font-weight: 500; color: var(--mute);
+    margin-bottom: 6px; letter-spacing: 0.01em;
+  }
+  .tw-row textarea, .tw-row input {
+    width: 100%; box-sizing: border-box; resize: vertical;
+    border: 1px solid var(--line2); border-radius: 9px;
+    background: var(--paper2); color: var(--ink);
+    font: inherit; font-size: 13px; line-height: 1.45; padding: 9px 10px;
+    outline: none; transition: border-color .15s ease, background .15s ease;
+  }
+  .tw-row textarea { min-height: 38px; }
+  .tw-row textarea:focus, .tw-row input:focus { border-color: var(--blue); background: var(--card); }
+</style>
+
+<div id="tw-panel" aria-hidden="true">
+  <div id="tw-head">
+    <span class="title">Tweaks</span>
+    <button id="tw-close" type="button" aria-label="Close tweaks">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+    </button>
+  </div>
+  <div id="tw-body"></div>
+</div>
+
+<script>
+(function () {
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "v4_eyebrow": "Free AI Visibility Audit",
+    "v4_headline": "Become the Business AI recommends.",
+    "v4_sub": "Drop your email. We send a 12-page audit of your AI search, Google, and lead-leak signals.",
+    "v4_button": "Get my audit",
+    "v4_fine": "We reply in 48 hours."
+  }/*EDITMODE-END*/;
+
+  const values = Object.assign({}, TWEAK_DEFAULTS);
+
+  // Render the headline keeping the serif accent on the trailing "recommends." phrase.
+  function setHeadline(el, text) {
+    const m = text.match(/^(.*?)(\bAI\b[\s\S]*recommends\.?)\s*$/i);
+    el.textContent = '';
+    if (m) {
+      if (m[1]) el.appendChild(document.createTextNode(m[1]));
+      const span = document.createElement('span');
+      span.className = 'serif';
+      span.textContent = m[2];
+      el.appendChild(span);
+    } else {
+      el.textContent = text;
+    }
+  }
+
+  function apply() {
+    const root = document.querySelector('.v4');
+    if (!root) return;
+    const eyebrow = root.querySelector('[data-eyebrow]');
+    const h2 = root.querySelector('[data-h2]');
+    const sub = root.querySelector('[data-sub]');
+    const btn = root.querySelector('[data-btn]');
+    const fine = root.querySelector('[data-fine]');
+    if (eyebrow) eyebrow.textContent = values.v4_eyebrow;
+    if (h2) setHeadline(h2, values.v4_headline);
+    if (sub) sub.textContent = values.v4_sub;
+    if (btn) btn.textContent = values.v4_button;
+    if (fine) fine.textContent = values.v4_fine;
+  }
+
+  // ── Build controls ───────────────────────────────────────────
+  const FIELDS = [
+    { key: 'v4_headline', label: 'Headline', area: true },
+    { key: 'v4_sub',      label: 'Sub-headline', area: true },
+    { key: 'v4_eyebrow',  label: 'Eyebrow' },
+    { key: 'v4_button',   label: 'Button label' },
+    { key: 'v4_fine',     label: 'Fine print' },
+  ];
+
+  const body = document.getElementById('tw-body');
+  FIELDS.forEach((f) => {
+    const row = document.createElement('div');
+    row.className = 'tw-row';
+    const lab = document.createElement('label');
+    lab.textContent = f.label;
+    const ctrl = document.createElement(f.area ? 'textarea' : 'input');
+    if (!f.area) ctrl.type = 'text';
+    ctrl.value = values[f.key];
+    if (f.area) ctrl.rows = 2;
+    ctrl.addEventListener('input', () => {
+      values[f.key] = ctrl.value;
+      apply();
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [f.key]: ctrl.value } }, '*');
+    });
+    row.appendChild(lab); row.appendChild(ctrl);
+    body.appendChild(row);
+  });
+
+  // ── Host protocol ────────────────────────────────────────────
+  const panel = document.getElementById('tw-panel');
+  function setOpen(o) {
+    panel.classList.toggle('open', o);
+    panel.setAttribute('aria-hidden', String(!o));
+  }
+  window.addEventListener('message', (e) => {
+    const t = e && e.data && e.data.type;
+    if (t === '__activate_edit_mode') setOpen(true);
+    else if (t === '__deactivate_edit_mode') setOpen(false);
+  });
+  document.getElementById('tw-close').addEventListener('click', () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  // ── Drag the panel by its header ─────────────────────────────
+  const head = document.getElementById('tw-head');
+  head.addEventListener('mousedown', (e) => {
+    if (e.target.closest('#tw-close')) return;
+    const r = panel.getBoundingClientRect();
+    const ox = e.clientX - r.left, oy = e.clientY - r.top;
+    head.classList.add('drag');
+    panel.style.right = 'auto'; panel.style.bottom = 'auto';
+    panel.style.left = r.left + 'px'; panel.style.top = r.top + 'px';
+    const move = (ev) => {
+      panel.style.left = Math.max(8, Math.min(window.innerWidth - r.width - 8, ev.clientX - ox)) + 'px';
+      panel.style.top  = Math.max(8, Math.min(window.innerHeight - 40, ev.clientY - oy)) + 'px';
+    };
+    const up = () => {
+      head.classList.remove('drag');
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  });
+
+  // Apply stored defaults to the DOM on load.
+  apply();
+})();
+</script>
+</body>
+</html>

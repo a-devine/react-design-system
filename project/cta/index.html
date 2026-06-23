@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Devine Edge — CTA Library</title>
+<meta name="description" content="Four production-ready CTA variations for the Devine Edge website. Preview, copy embed code, deploy." />
+
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #1A1A1A;
+    --mute: #6B635A;
+    --mute2: #8F8579;
+    --paper: #F8F4EC;
+    --paper2: #FBF8F1;
+    --card: #FFFFFF;
+    --line: #E8E0CF;
+    --line2: #D8CDB4;
+    --blue: #1F8FFF;
+    --blue50: #E3EFFF;
+    --blue100: #B9D7FB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); }
+  body {
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(rgba(26,26,26,0.025) 1px, transparent 1.2px);
+    background-size: 3px 3px;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+  }
+  .serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .mono  { font-family: 'Geist Mono', ui-monospace, monospace; }
+
+  /* ===== Header ===== */
+  header.page {
+    position: relative; z-index: 1;
+    max-width: 1240px; margin: 0 auto;
+    padding: 56px 32px 24px;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;
+  }
+  header.page .mark-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  header.page .mark-row svg { width: 22px; height: 23px; }
+  header.page .mark-row svg polygon:first-child { fill: var(--ink); }
+  header.page .mark-row svg polygon:last-child  { fill: var(--blue); }
+  header.page .mark-row img { height: 16px; }
+  header.page .kicker {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  header.page .kicker::before { content: ''; width: 20px; height: 1px; background: var(--blue100); }
+  header.page h1 {
+    margin: 14px 0 8px; font-size: 44px; font-weight: 500;
+    letter-spacing: -0.032em; line-height: 1.05; max-width: 720px;
+  }
+  header.page h1 .serif { color: var(--blue); }
+  header.page p {
+    margin: 0; max-width: 620px;
+    font-size: 15.5px; line-height: 1.55; color: var(--mute);
+  }
+  header.page .meta {
+    text-align: right; font-size: 12px; line-height: 1.55; color: var(--mute);
+  }
+  header.page .meta .label {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 10.5px; letter-spacing: 0.16em; color: var(--mute2);
+    text-transform: uppercase;
+  }
+
+  /* ===== Variants list ===== */
+  main {
+    position: relative; z-index: 1;
+    max-width: 1240px; margin: 0 auto;
+    padding: 16px 32px 80px;
+    display: grid; grid-template-columns: 1fr; gap: 28px;
+  }
+
+  .variant {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 22px; overflow: hidden;
+    box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 12px 32px -20px rgba(26,26,26,0.16);
+  }
+  .variant-head {
+    padding: 22px 28px; border-bottom: 1px solid var(--line);
+    background: var(--paper2);
+    display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+  }
+  .variant-head .left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .variant-head .num {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.16em; color: var(--mute2);
+    padding: 4px 8px; border: 1px solid var(--line); border-radius: 999px;
+    background: var(--card);
+  }
+  .variant-head h2 {
+    margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -0.014em;
+  }
+  .variant-head .tag {
+    font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue);
+  }
+  .variant-head .context {
+    font-size: 12px; color: var(--mute); display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 10px 5px 8px; border: 1px solid var(--line); border-radius: 999px; background: var(--card);
+  }
+  .variant-head .context::before {
+    content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--blue);
+  }
+  .variant-head .actions { display: flex; align-items: center; gap: 8px; }
+  .pill-btn {
+    appearance: none; background: var(--card); border: 1px solid var(--line);
+    border-radius: 999px; padding: 8px 14px 8px 12px;
+    font: inherit; font-size: 12.5px; color: var(--ink); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: border-color .15s ease, background .15s ease;
+    text-decoration: none;
+  }
+  .pill-btn:hover { border-color: var(--blue100); background: var(--blue50); }
+  .pill-btn svg { width: 12px; height: 12px; }
+
+  /* Two-column body: preview + embed */
+  .variant-body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    min-height: 560px;
+  }
+  .preview-pane {
+    position: relative;
+    background:
+      linear-gradient(to right, rgba(26,26,26,0.045) 1px, transparent 1px) 0 0 / 18px 18px,
+      linear-gradient(to bottom, rgba(26,26,26,0.045) 1px, transparent 1px) 0 0 / 18px 18px,
+      var(--paper);
+    border-right: 1px solid var(--line);
+    padding: 32px 20px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .preview-pane iframe {
+    width: 100%; height: 100%; min-height: 480px;
+    border: 0; background: transparent;
+    display: block;
+  }
+
+  .embed-pane {
+    padding: 24px 28px 28px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .embed-pane h3 {
+    margin: 0; font-size: 14px; font-weight: 500; letter-spacing: -0.008em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .embed-pane h3 .step {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 10px; letter-spacing: 0.16em; color: var(--mute2);
+    padding: 3px 7px; border: 1px solid var(--line); border-radius: 999px;
+  }
+  .embed-pane p {
+    margin: 0; font-size: 13px; color: var(--mute); line-height: 1.55;
+  }
+  .code-block {
+    position: relative;
+    background: var(--ink); color: #E8E0CF;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 12px; line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+    border: 1px solid #2A2520;
+  }
+  .code-block .copy {
+    position: absolute; top: 8px; right: 8px;
+    appearance: none; border: none;
+    background: rgba(255,255,255,0.08); color: var(--paper2);
+    font: inherit; font-size: 11px;
+    padding: 5px 10px; border-radius: 6px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: background .15s ease;
+  }
+  .code-block .copy:hover { background: rgba(31,143,255,0.4); }
+  .code-block .copy.done { background: var(--blue); }
+  .code-block .copy svg { width: 11px; height: 11px; }
+
+  .embed-pane .files {
+    border-top: 1px solid var(--line); padding-top: 14px;
+    font-size: 12px; color: var(--mute);
+  }
+  .embed-pane .files code {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 11px; color: var(--ink);
+    background: var(--paper2); border: 1px solid var(--line);
+    padding: 1px 6px; border-radius: 4px;
+  }
+
+  /* ===== Docs section ===== */
+  .docs {
+    margin-top: 12px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 22px; padding: 32px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .docs h2 {
+    margin: 0 0 14px; font-size: 22px; font-weight: 500; letter-spacing: -0.018em;
+    grid-column: 1 / -1;
+  }
+  .docs h3 {
+    margin: 0 0 8px; font-size: 14px; font-weight: 500; letter-spacing: -0.008em;
+  }
+  .docs p {
+    margin: 0 0 12px; font-size: 13.5px; color: var(--mute); line-height: 1.6;
+  }
+  .docs code {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 12px; color: var(--ink);
+    background: var(--paper2); border: 1px solid var(--line);
+    padding: 1px 6px; border-radius: 4px;
+  }
+  .docs ul { margin: 0; padding: 0; list-style: none; }
+  .docs ul li {
+    font-size: 13.5px; color: var(--ink); line-height: 1.6;
+    padding: 6px 0; border-bottom: 1px solid var(--line);
+    display: flex; gap: 10px;
+  }
+  .docs ul li:last-child { border-bottom: none; }
+  .docs ul li::before {
+    content: ''; width: 4px; height: 4px; border-radius: 999px;
+    background: var(--blue); margin-top: 9px; flex-shrink: 0;
+  }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 960px) {
+    header.page { grid-template-columns: 1fr; }
+    header.page .meta { text-align: left; }
+    header.page h1 { font-size: 32px; }
+    .variant-body { grid-template-columns: 1fr; }
+    .preview-pane { border-right: none; border-bottom: 1px solid var(--line); padding: 24px 16px; min-height: 480px; }
+    .docs { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="page">
+    <div>
+      <div class="mark-row">
+        <svg viewBox="0 0 118 126"><polygon points="0,0 115,0 73,23 26,23 26,101 77,102 115,125 0,125"></polygon><polygon points="54,63 116,37 116,88"></polygon></svg>
+        <img src="../assets/wordmark.svg" alt="Devine Edge" />
+      </div>
+      <span class="kicker">CTA Library · Production-ready</span>
+      <h1>Four CTAs, four contexts. <span class="serif">One brand voice.</span></h1>
+      <p>Each variation is a self-contained HTML file you can iframe, link, or copy-paste into any page on the Devine Edge site. All four share the same brand tokens, motion language, form-submission contract, and analytics hooks.</p>
+    </div>
+    <div class="meta">
+      <span class="label">Version</span><br />
+      v1.0 · Released May 2026<br /><br />
+      <span class="label">Files</span><br />
+      <code>cta/split.html</code><br />
+      <code>cta/seal.html</code><br />
+      <code>cta/inverted.html</code><br />
+      <code>cta/inline.html</code>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- V1 Split -->
+    <article class="variant">
+      <div class="variant-head">
+        <div class="left">
+          <span class="num">01</span>
+          <h2>Split</h2>
+          <span class="tag">Spread &amp; collapse</span>
+          <span class="context">Homepage hero</span>
+        </div>
+        <div class="actions">
+          <a class="pill-btn" href="split.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            Open
+          </a>
+        </div>
+      </div>
+      <div class="variant-body">
+        <div class="preview-pane">
+          <iframe src="split.html?embed=1" title="V1 Split CTA preview" loading="lazy"></iframe>
+        </div>
+        <div class="embed-pane">
+          <h3><span class="step">01</span>Iframe embed</h3>
+          <p>Paste into any page. Auto-resizes to fit content via <code>postMessage</code>.</p>
+          <div class="code-block" data-code><button class="copy" type="button" aria-label="Copy embed code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy
+          </button>&lt;iframe
+  src="/cta/split.html?embed=1"
+  title="Free AI Visibility Audit"
+  style="width:100%;border:0;background:transparent;"
+  height="540"
+  loading="lazy"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+  window.addEventListener('message', (e) =&gt; {
+    if (e.data?.type === 'cta:resize' &amp;&amp; e.data?.variant === 'v1-split') {
+      document.querySelector('iframe[src*="split.html"]').height = e.data.height;
+    }
+    if (e.data?.type === 'cta:submit') {
+      // analytics.track('cta_submit', e.data);
+    }
+  });
+&lt;/script&gt;</div>
+          <div class="files">
+            Deploy: <code>cta/split.html</code> + shared <code>assets/wordmark.svg</code>, <code>assets/favicon.svg</code>.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- V2 Seal -->
+    <article class="variant">
+      <div class="variant-head">
+        <div class="left">
+          <span class="num">02</span>
+          <h2>Seal</h2>
+          <span class="tag">Stamp &amp; settle</span>
+          <span class="context">/audit landing page</span>
+        </div>
+        <div class="actions">
+          <a class="pill-btn" href="seal.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            Open
+          </a>
+        </div>
+      </div>
+      <div class="variant-body">
+        <div class="preview-pane">
+          <iframe src="seal.html?embed=1" title="V2 Seal CTA preview" loading="lazy"></iframe>
+        </div>
+        <div class="embed-pane">
+          <h3><span class="step">02</span>Iframe embed</h3>
+          <p>Best paired with hero copy + proof above. Centered, single-column.</p>
+          <div class="code-block" data-code><button class="copy" type="button" aria-label="Copy embed code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy
+          </button>&lt;iframe
+  src="/cta/seal.html?embed=1"
+  title="Claim Your Free Audit"
+  style="width:100%;border:0;background:transparent;max-width:520px;display:block;margin:0 auto;"
+  height="620"
+  loading="lazy"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+  window.addEventListener('message', (e) =&gt; {
+    if (e.data?.type === 'cta:resize' &amp;&amp; e.data?.variant === 'v2-seal') {
+      document.querySelector('iframe[src*="seal.html"]').height = e.data.height;
+    }
+  });
+&lt;/script&gt;</div>
+          <div class="files">
+            Deploy: <code>cta/seal.html</code> + shared <code>assets/wordmark.svg</code>, <code>assets/favicon.svg</code>.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- V3 Inverted -->
+    <article class="variant">
+      <div class="variant-head">
+        <div class="left">
+          <span class="num">03</span>
+          <h2>Inverted</h2>
+          <span class="tag">Paper &amp; ink trade places</span>
+          <span class="context">Mid-page service / pricing CTA</span>
+        </div>
+        <div class="actions">
+          <a class="pill-btn" href="inverted.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            Open
+          </a>
+        </div>
+      </div>
+      <div class="variant-body">
+        <div class="preview-pane">
+          <iframe src="inverted.html?embed=1" title="V3 Inverted CTA preview" loading="lazy"></iframe>
+        </div>
+        <div class="embed-pane">
+          <h3><span class="step">03</span>Iframe embed</h3>
+          <p>Drop into a section break on service or pricing pages. The dark form gives visual punctuation.</p>
+          <div class="code-block" data-code><button class="copy" type="button" aria-label="Copy embed code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy
+          </button>&lt;iframe
+  src="/cta/inverted.html?embed=1"
+  title="See where you're invisible"
+  style="width:100%;border:0;background:transparent;"
+  height="540"
+  loading="lazy"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+  window.addEventListener('message', (e) =&gt; {
+    if (e.data?.type === 'cta:resize' &amp;&amp; e.data?.variant === 'v3-inverted') {
+      document.querySelector('iframe[src*="inverted.html"]').height = e.data.height;
+    }
+  });
+&lt;/script&gt;</div>
+          <div class="files">
+            Deploy: <code>cta/inverted.html</code> + shared <code>assets/wordmark.svg</code>, <code>assets/favicon.svg</code>.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- V4 Inline -->
+    <article class="variant">
+      <div class="variant-head">
+        <div class="left">
+          <span class="num">04</span>
+          <h2>Inline</h2>
+          <span class="tag">Type-led, single field</span>
+          <span class="context">Footer / blog inline</span>
+        </div>
+        <div class="actions">
+          <a class="pill-btn" href="inline.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            Open
+          </a>
+        </div>
+      </div>
+      <div class="variant-body">
+        <div class="preview-pane">
+          <iframe src="inline.html?embed=1" title="V4 Inline CTA preview" loading="lazy"></iframe>
+        </div>
+        <div class="embed-pane">
+          <h3><span class="step">04</span>Iframe embed</h3>
+          <p>Lightest possible footprint. Lives in footers, after blog posts, or between content sections.</p>
+          <div class="code-block" data-code><button class="copy" type="button" aria-label="Copy embed code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy
+          </button>&lt;iframe
+  src="/cta/inline.html?embed=1"
+  title="Become the business an AI recommends"
+  style="width:100%;border:0;background:transparent;"
+  height="420"
+  loading="lazy"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+  window.addEventListener('message', (e) =&gt; {
+    if (e.data?.type === 'cta:resize' &amp;&amp; e.data?.variant === 'v4-inline') {
+      document.querySelector('iframe[src*="inline.html"]').height = e.data.height;
+    }
+  });
+&lt;/script&gt;</div>
+          <div class="files">
+            Deploy: <code>cta/inline.html</code> + shared <code>assets/wordmark.svg</code>, <code>assets/favicon.svg</code>.
+          </div>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- Docs -->
+    <section class="docs">
+      <h2>Usage notes</h2>
+
+      <div>
+        <h3>1 · Two ways to embed</h3>
+        <p><strong>Iframe</strong> (recommended) — isolated styles, won't conflict with the host page. Use <code>?embed=1</code> for transparent background. Code blocks above auto-resize the iframe to its content.</p>
+        <p><strong>Copy-paste HTML</strong> — every file's <code>&lt;style&gt;</code>, <code>&lt;section&gt;</code>, and <code>&lt;script&gt;</code> blocks are scoped under one class (<code>.cta-split</code>, etc.) so they're safe to drop into a host page directly. You'll need to keep the Google Fonts link and the anime.js script too.</p>
+
+        <h3>2 · Brand tokens</h3>
+        <p>All four define the same scoped CSS variables: <code>--ink</code>, <code>--paper</code>, <code>--paper2</code>, <code>--card</code>, <code>--line</code>, <code>--blue</code>, <code>--blue50</code>, <code>--blue100</code>, <code>--mute</code>, <code>--mute2</code>. Override on the root section to retheme.</p>
+
+        <h3>3 · Reduced motion</h3>
+        <p>Every entrance respects <code>prefers-reduced-motion</code>. Users with the OS setting on see the final state instantly, no movement.</p>
+      </div>
+
+      <div>
+        <h3>4 · Form submission</h3>
+        <p>Each form fires two events when validated and submitted:</p>
+        <ul>
+          <li><code>cta:submit</code> CustomEvent on <code>window</code>, with <code>{ variant, context, data }</code> in <code>event.detail</code></li>
+          <li><code>postMessage</code> to the parent window (for iframe embeds) with the same payload</li>
+        </ul>
+        <p>The form prevents default and shows a success state. To wire to a real endpoint (HubSpot, Formspree, your API), add a listener that <code>fetch</code>es the data.</p>
+
+        <h3>5 · Analytics hooks</h3>
+        <p>Every CTA root carries <code>data-cta="vN-name"</code> and <code>data-cta-context="..."</code>. Listen for <code>cta:submit</code> and forward to your analytics:</p>
+        <p><code>window.addEventListener('cta:submit', e =&gt; analytics.track('audit_request', e.detail));</code></p>
+
+        <h3>6 · Assets &amp; dependencies</h3>
+        <p>Each file expects <code>../assets/wordmark.svg</code> and <code>../assets/favicon.svg</code> from a shared assets folder. Loads Geist + Instrument Serif from Google Fonts, and anime.js v3.2.1 from jsDelivr. All cached aggressively.</p>
+      </div>
+    </section>
+
+  </main>
+
+<script>
+  // ===== Copy-to-clipboard for embed snippets =====
+  document.querySelectorAll('.code-block').forEach((block) => {
+    const btn = block.querySelector('.copy');
+    btn.addEventListener('click', async () => {
+      const code = block.textContent.replace(/^\s*Copy\s*/, '').trim();
+      try {
+        await navigator.clipboard.writeText(code);
+        btn.classList.add('done');
+        const original = btn.innerHTML;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied';
+        setTimeout(() => {
+          btn.classList.remove('done');
+          btn.innerHTML = original;
+        }, 1600);
+      } catch (e) {
+        console.warn('Clipboard write failed', e);
+      }
+    });
+  });
+
+  // ===== Receive resize messages from iframe previews =====
+  window.addEventListener('message', (e) => {
+    if (!e.data || e.data.type !== 'cta:resize') return;
+    const map = { 'v1-split': 'split.html', 'v2-seal': 'seal.html', 'v3-inverted': 'inverted.html', 'v4-inline': 'inline.html' };
+    const file = map[e.data.variant];
+    if (!file) return;
+    const iframe = document.querySelector(`iframe[src*="${file}"]`);
+    if (iframe) iframe.style.height = e.data.height + 'px';
+  });
+
+  // ===== Demo: log submissions =====
+  window.addEventListener('message', (e) => {
+    if (e.data && e.data.type === 'cta:submit') {
+      console.log('[Devine Edge CTA] submission:', e.data);
+    }
+  });
+</script>
+</body>
+</html>

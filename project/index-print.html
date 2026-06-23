@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Devine Edge — The operating system for modern local business growth</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Geist', 'ui-sans-serif', 'system-ui'],
+          serif: ['"Instrument Serif"', 'serif'],
+        },
+        colors: {
+          ink:       '#1A1A1A',
+          ink2:      '#2A2520',
+          mute:      '#6B635A',
+          mute2:     '#8F8579',
+          paper:     '#F8F4EC',
+          paper2:    '#FBF8F1',
+          card:      '#FFFFFF',
+          line:      '#E8E0CF',
+          line2:     '#D8CDB4',
+          bronze:    '#1F8FFF',
+          bronze50:  '#E3EFFF',
+          bronze100: '#B9D7FB',
+          teal:      '#25564F',
+          teal50:    '#E0EAE7',
+        },
+      },
+    },
+  };
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.453.0/dist/umd/lucide.min.js"></script>
+
+<style>
+  html, body { background: #F8F4EC; }
+  body {
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    color: #1A1A1A;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Subtle paper grain */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      radial-gradient(rgba(26,26,26,0.025) 1px, transparent 1.2px);
+    background-size: 3px 3px;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+  }
+
+  .serif    { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .num      { font-variant-numeric: tabular-nums; }
+  .h-display {
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+  .h-section {
+    font-weight: 500;
+    letter-spacing: -0.028em;
+    line-height: 1.05;
+  }
+
+  /* Soft warm shadow for cards */
+  .shadow-soft   { box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 1px 2px rgba(26,26,26,0.04); }
+  .shadow-card   { box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 8px 24px -16px rgba(26,26,26,0.18); }
+  .shadow-rise   { box-shadow: 0 1px 0 rgba(26,26,26,0.06), 0 24px 60px -28px rgba(26,26,26,0.30); }
+
+  /* .reveal is a no-op visual marker now — entrance animations were removed
+     because hidden tabs pause CSS animations and were leaving content invisible.
+     The hook still adds .in for any future use. */
+
+  /* Hairline grid pattern */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(26,26,26,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(26,26,26,0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .grid-bg-sm {
+    background-image:
+      linear-gradient(to right, rgba(26,26,26,0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(26,26,26,0.045) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  /* Marquee */
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .marquee-track { animation: drift 45s linear infinite; }
+
+  /* Edge logo mark hover */
+  .edge-mark { transition: transform .35s ease; }
+  a:hover .edge-mark { transform: translateX(2px); }
+
+  /* Nicer focus */
+  button:focus-visible, a:focus-visible {
+    outline: 2px solid #1F8FFF;
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+
+  /* Section divider */
+  .rule { height: 1px; background: linear-gradient(to right, transparent, #D8CDB4 25%, #D8CDB4 75%, transparent); }
+
+  /* Pulse dot */
+  @keyframes pulse-dot { 0%,100% { opacity:.4; transform:scale(1); } 50% { opacity:1; transform:scale(1.4); } }
+  .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+  /* Flowing line */
+  @keyframes dash-flow { to { stroke-dashoffset: -40; } }
+  .flow-line { stroke-dasharray: 4 5; animation: dash-flow 1.6s linear infinite; }
+
+  ::selection { background: #1F8FFF; color: #FBF8F1; }
+
+  /* ===== Print ===== */
+  @media print {
+    @page { size: Letter portrait; margin: 0.45in; }
+
+    html, body {
+      background: #F8F4EC !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* Drop the paper-grain overlay — it bands badly on print engines */
+    body::before { display: none !important; }
+
+    /* Keep cards, bento tiles, pricing, etc. intact across pages */
+    section, article,
+    .rounded-2xl, .rounded-3xl, .rounded-xl,
+    .shadow-soft, .shadow-card, .shadow-rise,
+    figure, blockquote, li, table { break-inside: avoid; page-break-inside: avoid; }
+
+    h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+
+    /* Hide marquee duplication tail so it doesn't run off the page */
+    .marquee-track { animation: none !important; transform: none !important; }
+
+    /* Force in-flow rendering — kill any sticky/fixed nav so it doesn't repeat */
+    .fixed, .sticky { position: static !important; }
+
+    a { color: inherit !important; text-decoration: none !important; }
+    a[href]::after { content: '' !important; }
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="src/components.jsx" data-presets="env,react"></script>
+  <script type="text/babel" src="src/sections-a.jsx" data-presets="env,react"></script>
+  <script type="text/babel" src="src/sections-b.jsx" data-presets="env,react"></script>
+  <script type="text/babel" src="src/sections-c.jsx" data-presets="env,react"></script>
+  <script type="text/babel" src="src/app.jsx" data-presets="env,react"></script>
+
+  <script type="text/babel" data-presets="env,react">
+    // Auto-print once React has mounted and fonts have loaded
+    (async () => {
+      try { await document.fonts.ready; } catch (e) {}
+      const waitForRoot = () => new Promise((resolve) => {
+        const start = Date.now();
+        const tick = () => {
+          const root = document.getElementById('root');
+          if (root && root.children.length > 0) return resolve();
+          if (Date.now() - start > 8000) return resolve();
+          requestAnimationFrame(tick);
+        };
+        tick();
+      });
+      await waitForRoot();
+      // Extra settle for Babel-compiled section scripts and image decoding
+      await new Promise((r) => setTimeout(r, 800));
+      window.print();
+    })();
+  </script>
+</body>
+</html>

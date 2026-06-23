@@ -1,0 +1,1132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Devine Edge — /contact UI Spec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<template id="__bundler_thumbnail" data-bg-color="#F8F4EC">
+  <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="80" fill="#F8F4EC"/>
+    <rect x="12" y="14" width="40" height="4" rx="2" fill="#1A1A1A" opacity="0.8"/>
+    <rect x="12" y="22" width="60" height="2.5" rx="1.25" fill="#6B635A" opacity="0.5"/>
+    <rect x="12" y="28" width="50" height="2" rx="1" fill="#6B635A" opacity="0.35"/>
+    <rect x="12" y="38" width="96" height="0.75" rx="0.375" fill="#E8E0CF"/>
+    <rect x="12" y="44" width="28" height="3" rx="1.5" fill="#1F8FFF" opacity="0.7"/>
+    <rect x="12" y="51" width="44" height="2" rx="1" fill="#1A1A1A" opacity="0.5"/>
+    <rect x="12" y="57" width="36" height="2" rx="1" fill="#6B635A" opacity="0.4"/>
+    <rect x="12" y="63" width="40" height="2" rx="1" fill="#6B635A" opacity="0.3"/>
+    <rect x="68" y="44" width="20" height="6" rx="3" fill="#1A1A1A" opacity="0.12"/>
+    <rect x="68" y="54" width="40" height="2" rx="1" fill="#6B635A" opacity="0.3"/>
+    <rect x="68" y="59" width="32" height="2" rx="1" fill="#6B635A" opacity="0.2"/>
+  </svg>
+</template>
+
+<style>
+  :root {
+    --ink:    #1A1A1A;
+    --ink2:   #2A2520;
+    --mute:   #6B635A;
+    --mute2:  #8F8579;
+    --paper:  #F8F4EC;
+    --paper2: #FBF8F1;
+    --card:   #FFFFFF;
+    --line:   #E8E0CF;
+    --line2:  #D8CDB4;
+    --blue:   #1F8FFF;
+    --blue50: #E3EFFF;
+    --blue100:#B9D7FB;
+    --teal:   #25564F;
+    --teal50: #E0EAE7;
+    --warn:   #8B5E00;
+    --warn50: #FFF4D6;
+    --maxw:   760px;
+    --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, monospace;
+    --font-serif:'Instrument Serif', serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+  }
+
+  /* Grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(26,26,26,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: .6;
+    mix-blend-mode: multiply;
+  }
+
+  /* ── Layout ── */
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── Sidebar / TOC ── */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 40px 24px 40px 32px;
+    border-right: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .sidebar-brand-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 0 3px rgba(31,143,255,0.18);
+    flex-shrink: 0;
+  }
+
+  .sidebar-brand-name {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+
+  .toc-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mute2);
+    margin-bottom: 10px;
+  }
+
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .toc-list a {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--mute);
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: 6px;
+    transition: background .12s, color .12s;
+    line-height: 1.35;
+  }
+
+  .toc-list a:hover { background: rgba(26,26,26,0.05); color: var(--ink); }
+  .toc-list a.active { background: var(--blue50); color: var(--blue); }
+
+  .toc-list .toc-sub a {
+    padding-left: 16px;
+    font-size: 10.5px;
+    color: var(--mute2);
+  }
+
+  /* ── Main content ── */
+  .main {
+    padding: 56px 56px 120px;
+    min-width: 0;
+  }
+
+  /* ── Doc header ── */
+  .doc-header {
+    margin-bottom: 52px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .doc-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .doc-eyebrow-rule {
+    width: 22px; height: 1px;
+    background: var(--blue100);
+  }
+
+  .doc-eyebrow-text {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .doc-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    margin-bottom: 14px;
+  }
+
+  .doc-title .route {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--blue);
+    font-size: 0.85em;
+  }
+
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+
+  .doc-meta-chip {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(26,26,26,0.06);
+    color: var(--mute);
+  }
+
+  .doc-meta-chip.blue { background: var(--blue50); color: var(--blue); }
+
+  /* ── Callout / blockquote ── */
+  .callout {
+    background: var(--paper2);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--blue100);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 0 0 32px;
+    font-size: 13.5px;
+    color: var(--mute);
+    line-height: 1.6;
+  }
+
+  .callout strong { color: var(--ink); }
+  .callout em { font-family: var(--font-serif); font-style: italic; }
+
+  .callout.warn {
+    background: var(--warn50);
+    border-left-color: #E0A020;
+    color: var(--warn);
+  }
+
+  .callout.warn strong { color: var(--warn); }
+
+  /* ── Sections ── */
+  .spec-section {
+    margin-bottom: 56px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--blue);
+    letter-spacing: 0.04em;
+    min-width: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.018em;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink2);
+    margin: 28px 0 10px;
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--mute);
+    font-family: var(--font-mono);
+    margin: 20px 0 8px;
+  }
+
+  p { margin-bottom: 14px; color: var(--mute); font-size: 14.5px; line-height: 1.65; }
+  p strong { color: var(--ink); }
+  p em { font-family: var(--font-serif); font-style: italic; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--line);
+    margin: 48px 0;
+  }
+
+  /* ── Code blocks ── */
+  pre {
+    background: var(--ink);
+    color: var(--paper2);
+    border-radius: 12px;
+    padding: 20px 22px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+    margin: 14px 0 20px;
+    position: relative;
+  }
+
+  pre .lang-tag {
+    position: absolute;
+    top: 10px; right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(251,248,241,0.3);
+  }
+
+  code:not(pre code) {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    background: rgba(26,26,26,0.07);
+    padding: 1.5px 5px;
+    border-radius: 4px;
+    color: var(--ink2);
+  }
+
+  /* ── Tables ── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 14px 0 24px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead { background: var(--paper2); }
+
+  th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mute2);
+    font-weight: 500;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 9px 14px;
+    color: var(--mute);
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  td strong { color: var(--ink); }
+  td code { font-size: 11.5px; }
+
+  tr:hover td { background: rgba(26,26,26,0.015); }
+
+  /* Required badge */
+  .req {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    background: var(--blue50);
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+  }
+
+  .opt {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    background: rgba(26,26,26,0.06);
+    color: var(--mute2);
+    font-size: 10px;
+    font-family: var(--font-mono);
+  }
+
+  /* ── Token grid ── */
+  .token-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 14px 0 24px;
+  }
+
+  .token-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .token-swatch {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    border: 1px solid rgba(26,26,26,0.08);
+    flex-shrink: 0;
+  }
+
+  .token-info { min-width: 0; }
+
+  .token-name {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--blue);
+    letter-spacing: 0.02em;
+    margin-bottom: 2px;
+  }
+
+  .token-value {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--mute2);
+  }
+
+  .token-desc {
+    font-size: 11px;
+    color: var(--mute2);
+    margin-top: 2px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── Page structure diagram ── */
+  .page-diagram {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    background: var(--ink);
+    color: var(--paper2);
+    border-radius: 12px;
+    padding: 20px 22px;
+    line-height: 1.7;
+    margin: 14px 0 20px;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .page-diagram .dim { color: rgba(251,248,241,0.35); }
+  .page-diagram .hi  { color: var(--blue); }
+  .page-diagram .acc { font-style: italic; font-family: var(--font-serif); }
+
+  /* ── State chips ── */
+  .state-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+
+  .state-row:last-child { border-bottom: none; }
+
+  .state-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    min-width: 72px;
+    text-align: center;
+    background: rgba(26,26,26,0.07);
+    color: var(--ink);
+  }
+
+  .state-badge.rest   { background: var(--paper2); color: var(--mute); border: 1px solid var(--line); }
+  .state-badge.focus  { background: var(--blue50); color: var(--blue); }
+  .state-badge.error  { background: #FBE6E2; color: #B23A26; }
+  .state-badge.success{ background: var(--teal50); color: var(--teal); }
+  .state-badge.sub    { background: rgba(26,26,26,0.85); color: var(--paper2); }
+
+  .state-desc { color: var(--mute); line-height: 1.5; flex: 1; }
+  .state-desc code { font-size: 11.5px; }
+
+  /* ── Gap list (open questions) ── */
+  .gap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .gap-item {
+    display: flex;
+    gap: 12px;
+    background: var(--warn50);
+    border: 1px solid #E8C96A;
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+
+  .gap-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--warn);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .gap-text { font-size: 13.5px; color: var(--warn); line-height: 1.55; }
+  .gap-text strong { color: #5C3D00; }
+  .gap-text code { font-size: 12px; background: rgba(139,94,0,0.12); }
+
+  /* ── Step list ── */
+  .step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 14px 0;
+  }
+
+  .step-item {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: flex-start;
+  }
+
+  .step-item:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--blue);
+    min-width: 20px;
+    font-weight: 500;
+    margin-top: 1px;
+  }
+
+  .step-content { flex: 1; }
+  .step-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+  .step-desc  { font-size: 13.5px; color: var(--mute); line-height: 1.55; }
+
+  /* ── Lists ── */
+  ul, ol {
+    padding-left: 0;
+    margin: 10px 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    list-style: none;
+  }
+
+  li {
+    font-size: 13.5px;
+    color: var(--mute);
+    line-height: 1.55;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--line2);
+    font-weight: 400;
+  }
+
+  li strong { color: var(--ink); }
+  li code { font-size: 12px; }
+
+  /* ── Breakpoint cards ── */
+  .bp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .bp-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .bp-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+
+  .bp-desc {
+    font-size: 12.5px;
+    color: var(--mute);
+    line-height: 1.55;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      padding: 24px 24px;
+    }
+    .toc-list { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+    .toc-list a { padding: 4px 10px; }
+    .toc-list .toc-sub { display: none; }
+    .main { padding: 36px 24px 80px; }
+  }
+
+  @media (max-width: 520px) {
+    .main { padding: 28px 16px 60px; }
+    .token-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-dot"></div>
+      <span class="sidebar-brand-name">Devine Edge</span>
+    </div>
+    <div class="toc-label">Contents</div>
+    <ul class="toc-list">
+      <li><a href="#s1">1. Purpose &amp; priority</a></li>
+      <li><a href="#s2">2. Design tokens</a></li>
+      <li><a href="#s3">3. Page structure</a></li>
+      <li><a href="#s4">4. Section specs</a></li>
+      <li class="toc-sub"><a href="#s4-1">4.1 Header</a></li>
+      <li class="toc-sub"><a href="#s4-2">4.2 Hero</a></li>
+      <li class="toc-sub"><a href="#s4-3">4.3 Dual-path body</a></li>
+      <li><a href="#s5">5. The form</a></li>
+      <li class="toc-sub"><a href="#s5-1">5.1 Fields</a></li>
+      <li class="toc-sub"><a href="#s5-2">5.2 Field styling</a></li>
+      <li class="toc-sub"><a href="#s5-3">5.3 Submit button</a></li>
+      <li class="toc-sub"><a href="#s5-4">5.4 Field states</a></li>
+      <li class="toc-sub"><a href="#s5-5">5.5 Validation</a></li>
+      <li><a href="#s6">6. Success state</a></li>
+      <li><a href="#s7">7. Compliance</a></li>
+      <li><a href="#s8">8. Responsive</a></li>
+      <li><a href="#s9">9. Accessibility</a></li>
+      <li><a href="#s10">10. Data &amp; integrations</a></li>
+      <li><a href="#s11">11. Open questions</a></li>
+      <li><a href="#s12">12. Build notes</a></li>
+    </ul>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- Doc header -->
+    <div class="doc-header">
+      <div class="doc-eyebrow">
+        <div class="doc-eyebrow-rule"></div>
+        <span class="doc-eyebrow-text">UI Specification</span>
+      </div>
+      <h1 class="doc-title">Devine Edge <span class="route">/contact</span></h1>
+      <div class="doc-meta">
+        <span class="doc-meta-chip blue">Implementation-ready</span>
+        <span class="doc-meta-chip">v1.0 · June 2026</span>
+        <span class="doc-meta-chip">Copy: Website Copy V1</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Defaults assumed</strong> (questions timed out): dual-path layout — Free Audit is the primary conversion, plain "Send a message" form is the secondary path; two-column split; reuse brand tokens + existing form component; full field list with required/optional marked; the "what are you looking for help with?" field is a <code>&lt;select&gt;</code>; inline success state that reveals "what happens next"; mobile-first. Anything marked <strong>⚠ NEEDS INPUT</strong> is a real gap.
+    </div>
+
+    <!-- ── 1. Purpose ── -->
+    <section class="spec-section" id="s1">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Purpose &amp; priority</h2>
+      </div>
+      <p>The contact page is the <strong>3rd build priority</strong> (after Homepage and Free Audit page). Its job: <em>"gives people a simple way to reach out."</em></p>
+      <p>Two visitor intents land here, and the page serves both without forcing a choice:</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Intent</th><th>Path</th><th>Treatment</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>"I want the free audit" <strong>(primary)</strong></td>
+              <td>Audit CTA → Free Audit page</td>
+              <td><strong>Primary</strong> — visually dominant, top-left</td>
+            </tr>
+            <tr>
+              <td>"I just have a question / want to talk fit"</td>
+              <td>Inline message form</td>
+              <td><strong>Secondary</strong> — the form on this page</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Do <strong>not</strong> rebuild the full audit form here. The audit lives on its own page; this page points to it.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 2. Tokens ── -->
+    <section class="spec-section" id="s2">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Design tokens</h2>
+      </div>
+      <p>Lifted verbatim from <code>Devine Edge - Brand Guide.html</code>. Use these exact values — do not invent new colors.</p>
+
+      <h3>Color</h3>
+      <div class="token-grid">
+        <div class="token-card"><div class="token-swatch" style="background:#1A1A1A;"></div><div class="token-info"><div class="token-name">--ink</div><div class="token-value">#1A1A1A</div><div class="token-desc">Primary text, btn bg</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#6B635A;"></div><div class="token-info"><div class="token-name">--mute</div><div class="token-value">#6B635A</div><div class="token-desc">Body / secondary text</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#8F8579;"></div><div class="token-info"><div class="token-name">--mute2</div><div class="token-value">#8F8579</div><div class="token-desc">Labels, placeholders</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#F8F4EC; border:1px solid #E8E0CF;"></div><div class="token-info"><div class="token-name">--paper</div><div class="token-value">#F8F4EC</div><div class="token-desc">Page background (warm)</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#FBF8F1; border:1px solid #E8E0CF;"></div><div class="token-info"><div class="token-name">--paper2</div><div class="token-value">#FBF8F1</div><div class="token-desc">Input bg, dark-plate text</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#FFFFFF; border:1px solid #E8E0CF;"></div><div class="token-info"><div class="token-name">--card</div><div class="token-value">#FFFFFF</div><div class="token-desc">Form card surface</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#E8E0CF;"></div><div class="token-info"><div class="token-name">--line</div><div class="token-value">#E8E0CF</div><div class="token-desc">Default borders</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#1F8FFF;"></div><div class="token-info"><div class="token-name">--blue</div><div class="token-value">#1F8FFF</div><div class="token-desc">Accent, focus, links</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#E3EFFF;"></div><div class="token-info"><div class="token-name">--blue50</div><div class="token-value">#E3EFFF</div><div class="token-desc">Badge tints, focus halo</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#B9D7FB;"></div><div class="token-info"><div class="token-name">--blue100</div><div class="token-value">#B9D7FB</div><div class="token-desc">Eyebrow rule</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#25564F;"></div><div class="token-info"><div class="token-name">--teal</div><div class="token-value">#25564F</div><div class="token-desc">Success text</div></div></div>
+        <div class="token-card"><div class="token-swatch" style="background:#E0EAE7;"></div><div class="token-info"><div class="token-name">--teal50</div><div class="token-value">#E0EAE7</div><div class="token-desc">Success background</div></div></div>
+      </div>
+
+      <h3>Typography</h3>
+      <pre><code>--font-sans:  'Geist', ui-sans-serif, system-ui, sans-serif;   /* body + UI */
+--font-mono:  'Geist Mono', ui-monospace, monospace;            /* eyebrows, labels */
+--font-serif: 'Instrument Serif', serif;                        /* italic accent only */</code></pre>
+      <p>Google Fonts import (project-wide):</p>
+      <pre><code>https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700
+  &amp;family=Geist+Mono:wght@400;500
+  &amp;family=Instrument+Serif:ital@0;1
+  &amp;display=swap</code></pre>
+
+      <h3>Shape &amp; elevation</h3>
+      <pre><code>Field radius:   10px
+Card radius:    14–20px  (20px hero split card; 14px sub-cards)
+Button radius:  999px  (pill)
+Card shadow:    0 1px 0 rgba(26,26,26,0.04),
+                0 18px 40px -28px rgba(26,26,26,0.18)
+Texture:        fixed radial dot-grid overlay
+                  rgba(26,26,26,0.025) 1px dots / 3px grid
+                  opacity .6, mix-blend-mode: multiply
+                  (copy body::before from Brand Guide)</code></pre>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 3. Page structure ── -->
+    <section class="spec-section" id="s3">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Page structure</h2>
+      </div>
+      <div class="page-diagram"><span class="dim">┌─</span> <span class="hi">Header</span> (sticky, shared site nav) <span class="dim">─────────────────────────────────────┐</span>
+<span class="dim">│</span>  Logo: Devine Edge          Home · What We Build · Free Audit ·  <span class="dim">│</span>
+<span class="dim">│</span>                             How It Works · Who It's For · FAQ    <span class="dim">│</span>
+<span class="dim">│</span>                                             [ Get Free Audit ]   <span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">1. Contact Hero</span> <span class="dim">──────────────────────────────────────────────┤</span>
+<span class="dim">│</span>  eyebrow · headline · subheadline                                <span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">2. Dual-path body</span> (two-column split) <span class="dim">────────────────────────┤</span>
+<span class="dim">│</span>  <span class="hi">LEFT</span>  — Primary: "Start with a Free Audit" panel (dark plate)   <span class="dim">│</span>
+<span class="dim">│</span>  <span class="hi">RIGHT</span> — Secondary: "Send a message" form card                   <span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">3. Success state</span> (replaces form on submit) <span class="dim">─────────────────┤</span>
+<span class="dim">│</span>  "What happens next" — 4 steps, inline                           <span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">4. Footer</span> (shared site footer) <span class="dim">──────────────────────────────┤</span>
+<span class="dim">└──────────────────────────────────────────────────────────────────┘</span></div>
+      <p>On mobile the two columns stack: <strong>Audit panel first, form second.</strong></p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 4. Section specs ── -->
+    <section class="spec-section" id="s4">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2>Section specs</h2>
+      </div>
+
+      <h3 id="s4-1">4.1 Header (shared component)</h3>
+      <p>Reuse the site's sticky header. Tokens from Brand Guide <code>header.bar</code>: <code>background: rgba(248,244,236,0.86)</code>, <code>backdrop-filter: blur(12px)</code>, <code>border-bottom: 1px solid var(--line)</code>. Nav items per copy doc. Mark <strong>Contact</strong> as <code>aria-current="page"</code>. Header primary button <code>Get Free Audit</code> uses the <code>.ll-btn</code> style (see §5.3). Nav collapses below <strong>880px</strong>.</p>
+
+      <h3 id="s4-2">4.2 Contact Hero</h3>
+      <p><strong>Copy (verbatim):</strong></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Element</th><th>Copy</th></tr></thead>
+          <tbody>
+            <tr><td>Eyebrow</td><td>Contact Devine Edge</td></tr>
+            <tr><td>Headline</td><td>Want to see where your business is losing visibility, trust, or leads?</td></tr>
+            <tr><td>Subheadline</td><td>Start with a Free AI Visibility Audit or reach out to discuss whether Devine Edge is a fit for your business.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Specs:</strong></p>
+      <ul>
+        <li><strong>Eyebrow:</strong> <code>--font-mono</code>, 11px, <code>letter-spacing: 0.22em</code>, uppercase, <code>color: var(--blue)</code>, with the 22px × 1px <code>--blue100</code> rule before it.</li>
+        <li><strong>Headline:</strong> <code>--font-sans</code>, weight 600, <code>clamp(30px, 4.4vw, 46px)</code>, <code>letter-spacing: -0.025em</code>, <code>line-height: 1.04</code>, <code>max-width: 18ch</code>. Optionally one serif/blue accent phrase max.</li>
+        <li><strong>Subheadline:</strong> 17px, <code>color: var(--mute)</code>, <code>max-width: 60ch</code>, <code>line-height: 1.55</code>.</li>
+        <li><strong>Spacing:</strong> hero block <code>padding: 84px 32px</code>, headline <code>margin-top: 16px</code>, subheadline <code>margin-top: 18px</code>.</li>
+      </ul>
+
+      <h3 id="s4-3">4.3 Dual-path body</h3>
+      <p>Two-column split inside the <code>--maxw</code> (1080px) container:</p>
+      <pre><code>grid-template-columns: minmax(320px, 0.85fr) minmax(380px, 1.15fr);
+gap: 0;  /* cards share an edge — mirror cta-form.html split */
+radii:  left card  → 20px 0 0 20px
+        right card → 0 20px 20px 0
+mobile: left → 20px 20px 0 0  /  right → 0 0 20px 20px</code></pre>
+
+      <h4>LEFT — Free Audit panel (dark plate)</h4>
+      <p>Reuse <code>.logo-plate</code> from <code>cta-form.html</code> (dark <code>--ink</code> bg, faint white grid overlay, blue radial glow bottom-right).</p>
+      <ul>
+        <li><strong>Top tag:</strong> pulse dot (6px, <code>--blue</code>, <code>0 0 0 4px rgba(31,143,255,0.18)</code> ring) + "Devine Edge", mono 11px uppercase, <code>rgba(251,248,241,0.6)</code></li>
+        <li><strong>Heading:</strong> "Start with a Free AI Visibility Audit" — sans 28–32px, weight 500, <code>letter-spacing: -0.02em</code>, <code>color: var(--paper2)</code></li>
+        <li><strong>Body:</strong> "See where you stand, where competitors are winning, and what to fix first." — 13–14px, <code>rgba(251,248,241,0.65)</code>, <code>max-width: 230px</code></li>
+        <li><strong>Bullets (trim to 3–4):</strong> Local &amp; Google visibility · AI-search readiness · Competitor comparison · Top growth opportunities</li>
+        <li><strong>Primary CTA:</strong> "Get a Free AI Visibility Audit" → <code>/free-audit</code>. <code>.ll-btn</code> inverse variant. Pill + arrow icon. Single most prominent action on the page.</li>
+        <li><strong>Microcopy:</strong> "No pressure. Just clarity."</li>
+      </ul>
+
+      <h4>RIGHT — "Send a message" form card</h4>
+      <p>Reuse <code>.form-card</code> from <code>cta-form.html</code>.</p>
+      <ul>
+        <li><strong>Eyebrow:</strong> "Or send a message" — mono 11px, uppercase, <code>--blue</code></li>
+        <li><strong>Headline:</strong> "Send a message" — sans 30px, weight 500, <code>letter-spacing: -0.028em</code></li>
+        <li><strong>Intro copy:</strong> "Share a few details about your business and we'll review your current visibility, online presence, and growth opportunities." — 14.5px, <code>--mute</code></li>
+        <li><strong>Submit microcopy:</strong> "We will review your message and respond if there is a clear fit."</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 5. Form ── -->
+    <section class="spec-section" id="s5">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2>The "Send a message" form</h2>
+      </div>
+
+      <h3 id="s5-1">5.1 Fields</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Label</th><th>Control</th><th>Type</th><th>Req.</th><th>Placeholder / options</th><th>Autocomplete</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Name</td><td><code>input</code></td><td>text</td><td><span class="req">✓</span></td><td><code>Jane Devine</code></td><td><code>name</code></td></tr>
+            <tr><td>2</td><td>Business name</td><td><code>input</code></td><td>text</td><td><span class="req">✓</span></td><td><code>e.g. Northgate Med Spa</code></td><td><code>organization</code></td></tr>
+            <tr><td>3</td><td>Website</td><td><code>input</code></td><td>url</td><td><span class="opt">—</span></td><td><code>https://</code></td><td><code>url</code></td></tr>
+            <tr><td>4</td><td>Email</td><td><code>input</code></td><td>email</td><td><span class="req">✓</span></td><td><code>you@business.com</code></td><td><code>email</code></td></tr>
+            <tr><td>5</td><td>Phone</td><td><code>input</code></td><td>tel</td><td><span class="opt">—</span></td><td><code>(555) 000-0000</code></td><td><code>tel</code></td></tr>
+            <tr><td>6</td><td>What are you looking for help with?</td><td><strong><code>select</code></strong></td><td>—</td><td><span class="req">✓</span></td><td>See options below</td><td>—</td></tr>
+            <tr><td>7</td><td>Message</td><td><code>textarea</code></td><td>—</td><td><span class="opt">—</span></td><td><code>Tell us a bit about your business and what you're trying to improve.</code></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Field 6 select options:</strong> "Select one…" (disabled placeholder) · More calls &amp; leads · Website that converts · Local / Google visibility · AI search visibility (GEO) · Competitor intelligence · Reviews &amp; reputation · Follow-up &amp; automation · Not sure — need direction · Other</p>
+      <p><strong>Two-up layout:</strong> Name + Business name on one row at ≥520px card width (<code>grid-template-columns: 1fr 1fr; gap: 14px</code>); Email + Phone likewise. Website, select, Message are full-width. Single column below that.</p>
+
+      <h3 id="s5-2">5.2 Field styling</h3>
+      <pre><code>/* Group */
+display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px;
+
+/* Label */
+font-family: var(--font-mono); font-size: 11px;
+letter-spacing: 0.14em; text-transform: uppercase;
+color: var(--mute2);
+
+/* Input / select / textarea */
+appearance: none;
+background: var(--paper2); border: 1px solid var(--line);
+border-radius: 10px; padding: 12px 14px;
+font: inherit; font-size: 15px; color: var(--ink);
+
+/* Textarea */
+min-height: 120px; resize: vertical; line-height: 1.5;
+
+/* Select — add custom chevron; render placeholder in --mute2 */</code></pre>
+
+      <h3 id="s5-3">5.3 Submit button</h3>
+      <pre><code>background: var(--ink); color: var(--paper2);
+border: none; font-weight: 500; font-size: 14.5px;
+padding: 13px 22px; border-radius: 999px;
+display: inline-flex; align-items: center; gap: 10px;
+transition: transform .12s ease, background .2s ease;
+
+:hover  → background: #000; transform: translateY(-1px);
+:active → transform: scale(0.98);
+arrow   → 16px stroke icon; :hover → translateX(3px);</code></pre>
+      <p><strong>Label (verbatim):</strong> "Send Message". Place in a <code>.submit-row</code> with the microcopy (<code>justify-content: space-between</code>), or stack on narrow cards.</p>
+
+      <h3 id="s5-4">5.4 Field states</h3>
+      <div style="background:var(--card); border:1px solid var(--line); border-radius:12px; padding:4px 16px; margin:14px 0 20px;">
+        <div class="state-row">
+          <span class="state-badge rest">Rest</span>
+          <span class="state-desc"><code>background:var(--paper2); border:1px solid var(--line)</code></span>
+        </div>
+        <div class="state-row">
+          <span class="state-badge">Hover</span>
+          <span class="state-desc"><code>border-color:var(--line2)</code></span>
+        </div>
+        <div class="state-row">
+          <span class="state-badge focus">Focus</span>
+          <span class="state-desc"><code>outline:none; background:#fff; border-color:var(--blue); box-shadow:0 0 0 4px rgba(31,143,255,0.12)</code></span>
+        </div>
+        <div class="state-row">
+          <span class="state-badge">Filled</span>
+          <span class="state-desc">Same as rest; text <code>--ink</code></span>
+        </div>
+        <div class="state-row">
+          <span class="state-badge error">Error</span>
+          <span class="state-desc"><code>border-color:#B23A26; box-shadow:0 0 0 4px rgba(178,58,38,0.10)</code> — helper text below in <code>#B23A26</code>, 12.5px</span>
+        </div>
+        <div class="state-row">
+          <span class="state-badge">Disabled</span>
+          <span class="state-desc"><code>opacity:.55; cursor:not-allowed</code></span>
+        </div>
+        <div class="state-row">
+          <span class="state-badge sub">Submitting</span>
+          <span class="state-desc">Button shows inline spinner; label → "Sending…"; button <code>disabled</code>, <code>opacity:.7</code></span>
+        </div>
+      </div>
+
+      <h3 id="s5-5">5.5 Validation</h3>
+      <ul>
+        <li>Validate on <strong>blur</strong> per field; validate <strong>all</strong> on submit.</li>
+        <li>Email: standard email pattern → "Enter a valid email"</li>
+        <li>Required fields: Name, Business name, Email, field 6 → "This field is required"</li>
+        <li>Website: optional; normalize to <code>https://</code> on submit if filled.</li>
+        <li>Phone: optional; accept free-form; do not over-validate.</li>
+        <li>Always pair error colour with visible text + <code>aria-invalid="true"</code> + <code>aria-describedby</code> pointing at the error node.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 6. Success state ── -->
+    <section class="spec-section" id="s6">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2>Success state</h2>
+      </div>
+      <p>On successful submit, <strong>replace the form card's contents</strong> (keep the card) with a confirmation and the "What happens next" steps. Move keyboard focus to the heading.</p>
+      <ul>
+        <li><strong>Heading:</strong> "Message sent." — sans 30px, weight 500, small teal check badge (<code>background:var(--teal50); color:var(--teal); border-radius:5px</code>)</li>
+        <li><strong>Confirmation line:</strong> "We will review your message and respond if there is a clear fit."</li>
+        <li><strong>Focus management:</strong> <code>tabindex="-1"</code>, <code>role="status"</code> / <code>aria-live="polite"</code> on the heading</li>
+        <li><strong>Secondary actions:</strong> "← Send another message" (resets form) + persistent audit CTA "Get a Free Audit"</li>
+      </ul>
+      <h4>What happens next — 4 steps</h4>
+      <div class="step-list">
+        <div class="step-item"><span class="step-num">01</span><div class="step-content"><div class="step-title">We review your business</div><div class="step-desc">Site, local presence, Google profile, competitor position, obvious conversion gaps.</div></div></div>
+        <div class="step-item"><span class="step-num">02</span><div class="step-content"><div class="step-title">We identify the biggest opportunities</div><div class="step-desc">The changes most likely to improve visibility, trust, lead capture, and follow-up.</div></div></div>
+        <div class="step-item"><span class="step-num">03</span><div class="step-content"><div class="step-title">You receive the findings</div><div class="step-desc">A clear summary of where you stand and what we'd fix first.</div></div></div>
+        <div class="step-item"><span class="step-num">04</span><div class="step-content"><div class="step-title">If it makes sense, we talk next steps</div><div class="step-desc">A Growth Infrastructure Package or ongoing support.</div></div></div>
+      </div>
+      <p>Step numbers in <code>--font-mono</code>, <code>--blue</code>. Titles weight 600. Descriptions <code>--mute</code>, 14px.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 7. Compliance ── -->
+    <section class="spec-section" id="s7">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2>Compliance &amp; anti-spam</h2>
+      </div>
+      <ul>
+        <li><strong>Honeypot field:</strong> visually hidden (<code>position:absolute; left:-9999px</code>), <code>tabindex="-1"</code>, <code>autocomplete="off"</code>, <code>aria-hidden="true"</code>. Reject if filled.</li>
+        <li><strong>Consent line</strong> (non-blocking, below submit): 12px, <code>--mute2</code> — "By submitting, you agree to be contacted about your inquiry. We never share or sell your data."</li>
+      </ul>
+      <div class="callout warn">
+        <strong>⚠ NEEDS INPUT:</strong> If a marketing opt-in or hard privacy-policy checkbox is legally required, add a checkbox + link to <code>/privacy</code>. No privacy policy URL exists in the source material.
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 8. Responsive ── -->
+    <section class="spec-section" id="s8">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2>Responsive behavior (mobile-first)</h2>
+      </div>
+      <div class="bp-grid">
+        <div class="bp-card"><div class="bp-label">&lt; 560px</div><div class="bp-desc">Single column. Hero padding 56px 20px. Audit plate + form stacked full-width. All form fields single-column. Submit button full-width; microcopy above it.</div></div>
+        <div class="bp-card"><div class="bp-label">560–880px</div><div class="bp-desc">Single column still, but Name/Business and Email/Phone may pair into 2-up rows inside the form. Hero padding 72px 28px.</div></div>
+        <div class="bp-card"><div class="bp-label">≥ 880px</div><div class="bp-desc">Two-column split (audit plate + form share an edge). Header nav visible. Hero padding 84px 32px.</div></div>
+        <div class="bp-card"><div class="bp-label">≥ 1080px</div><div class="bp-desc">Container caps at <code>--maxw</code> (1080px); centered with auto margins.</div></div>
+      </div>
+      <ul>
+        <li>Tap targets ≥ <strong>44px</strong> (inputs at 12px padding + 15px text ≈ 45px; pill button ≥ 45px — OK)</li>
+        <li>Bump input <code>font-size</code> to 16px below 560px to prevent iOS zoom-on-focus</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 9. Accessibility ── -->
+    <section class="spec-section" id="s9">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2>Accessibility</h2>
+      </div>
+      <ul>
+        <li>Every field has a real <code>&lt;label for&gt;</code>; placeholders are <strong>not</strong> a substitute for labels.</li>
+        <li>Logical DOM/focus order: hero → audit CTA → form fields top-to-bottom → submit.</li>
+        <li>Visible focus ring on all interactive elements (4px blue halo doubles as the focus indicator — also on buttons and links, not just inputs).</li>
+        <li><strong>Color contrast:</strong> <code>--ink</code> on <code>--paper</code> passes AA; <code>--mute</code> (#6B635A) on paper passes AA for body text. <code>--blue</code> (#1F8FFF) on white is ~3:1 — acceptable for large text / UI accents, <strong>not</strong> for small body copy.</li>
+        <li>Errors announced via <code>aria-live</code>; success state focus-managed (§6).</li>
+        <li>Honeypot hidden with <code>position:absolute; left:-9999px</code> (not <code>display:none</code>) + <code>aria-hidden="true"</code>.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 10. Data ── -->
+    <section class="spec-section" id="s10">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2>Data handling &amp; integrations</h2>
+      </div>
+      <div class="callout warn">
+        <strong>⚠ NEEDS INPUT:</strong> The source material specifies no backend. All items below are open decisions.
+      </div>
+      <ul>
+        <li><strong>Submission target:</strong> CRM/form endpoint? Recommend a single POST that routes to the owner's inbox + CRM.</li>
+        <li><strong>Fields → CRM mapping:</strong> field 6 (select) and Message are the qualifying signals; pass as structured fields, not just a blob.</li>
+        <li><strong>Spam:</strong> honeypot is specced; add server-side rate limiting / optional CAPTCHA if abuse appears.</li>
+        <li><strong>Notifications:</strong> owner email on every submit. Consider an autoresponder echoing the "What happens next" steps.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 11. Open questions ── -->
+    <section class="spec-section" id="s11">
+      <div class="section-header">
+        <span class="section-num">11</span>
+        <h2>Open questions / gaps to resolve</h2>
+      </div>
+      <div class="gap-list">
+        <div class="gap-item"><span class="gap-num">01</span><div class="gap-text"><strong>No direct contact details exist</strong> — no email, phone, address, service area, hours, or social links anywhere in the copy doc. If any are real, add a compact "Other ways to reach us" block. Until then, the form + audit CTA are the only channels.</div></div>
+        <div class="gap-item"><span class="gap-num">02</span><div class="gap-text"><strong>Response-time promise</strong> — the brand leans on "speed wins the lead." A concrete SLA (e.g. "We reply within 1 business day") would strengthen the page but isn't in the source. Confirm before stating a number.</div></div>
+        <div class="gap-item"><span class="gap-num">03</span><div class="gap-text"><strong>Privacy policy URL</strong> — needed for the consent line / any required checkbox.</div></div>
+        <div class="gap-item"><span class="gap-num">04</span><div class="gap-text"><strong>Button hover convention</strong> — <code>cta-form.html</code> hovers to <code>--blue</code>; the Brand Guide hovers to <code>#000</code>. Pick one site-wide. Recommend: solid buttons → <code>#000</code>, accent buttons → <code>#0E7CEB</code>.</div></div>
+        <div class="gap-item"><span class="gap-num">05</span><div class="gap-text"><strong>Hero accent phrase</strong> — confirm whether to set a serif/blue accent in the headline (brand rhythm) or keep it all-sans.</div></div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 12. Build notes ── -->
+    <section class="spec-section" id="s12">
+      <div class="section-header">
+        <span class="section-num">12</span>
+        <h2>Build notes</h2>
+      </div>
+      <ul>
+        <li>Reuse, don't reinvent: lift <code>body::before</code> grain, <code>.eyebrow</code>, <code>.logo-plate</code>, <code>.form-card</code>, <code>.field</code>, and <code>.ll-btn</code> from <code>cta-form.html</code> / Brand Guide.</li>
+        <li>Keep the page to <strong>one</strong> primary action (audit CTA) and one secondary (message form). No competing CTAs, no filler sections.</li>
+        <li>Footer: shared site footer — Company / Offers / Best For columns + "© Devine Edge. All rights reserved."</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Active TOC link on scroll
+  const headings = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('.toc-list a');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector('.toc-list a[href="#' + e.target.id + '"]');
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  headings.forEach(h => obs.observe(h));
+</script>
+
+</body>
+</html>
