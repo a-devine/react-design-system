@@ -74,8 +74,19 @@ real form → success-state flow, and a once-on-load entrance animation (anime.j
 documented `cta:submit` CustomEvent + `postMessage` analytics contract. The `Mark` component
 and `WORDMARK` asset are reused rather than re-inlined.
 
-> **Routing note:** uses `BrowserRouter`, so `vite dev`/`vite preview` serve the SPA fallback
-> automatically. For static hosting, add a catch-all rewrite to `index.html`.
+## Deployment
+
+The app uses `BrowserRouter` for clean URLs (`/cta`, `/contact`) — which keeps the in-page
+`#section` anchors (brand-guide nav, contact-spec sidebar) working. The trade-off is that a
+static host must serve `index.html` for every path so a reload or deep-link to `/contact`
+doesn't 404. This "catch-all rewrite" is already configured for the common hosts:
+
+- **Netlify / Cloudflare Pages** — `public/_redirects` (`/* → /index.html 200`), copied to `dist/`.
+- **Vercel** — `vercel.json` rewrites all paths to `/index.html`.
+- **`vite dev` / `vite preview`** — handle the SPA fallback automatically, no config needed.
+- **Other hosts** (nginx, Apache, S3+CloudFront, …) — point the not-found/fallback handler at
+  `/index.html`. For a subpath deploy (e.g. GitHub Pages project site), also set Vite's `base`
+  and pass a matching `basename` to `<BrowserRouter>`.
 
 ## Design tokens
 

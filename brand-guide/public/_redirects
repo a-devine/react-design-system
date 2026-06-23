@@ -1,0 +1,4 @@
+# SPA fallback — serve index.html for any path so client-side routes
+# (/cta, /cta/:variant, /contact) resolve on reload / deep-link.
+# Used by Netlify and Cloudflare Pages. Copied to dist/ at build time.
+/*    /index.html   200
