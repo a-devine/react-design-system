@@ -1,0 +1,201 @@
+/* ============================================================
+   Devine Edge · CTA · V1 SPLIT — context: homepage hero
+   Scoped under .cta-split.
+   ============================================================ */
+
+.cta-split {
+  --ink: #1A1A1A;
+  --mute: #6B635A;
+  --mute2: #8F8579;
+  --paper: #F8F4EC;
+  --paper2: #FBF8F1;
+  --card: #FFFFFF;
+  --line: #E8E0CF;
+  --blue: #1F8FFF;
+  --blue50: #E3EFFF;
+  --blue100: #B9D7FB;
+
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 820px;
+}
+.cta-split .stage {
+  position: relative;
+  width: 100%;
+  height: 460px;
+}
+.cta-split .serif {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic; font-weight: 400;
+}
+
+/* ===== Logo plate (left, dark) ===== */
+.cta-split .plate {
+  position: absolute; inset: 0 auto 0 0;
+  width: 42%; height: 100%;
+  background: var(--ink); color: var(--paper2);
+  border-radius: 20px;
+  padding: 30px 28px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden; z-index: 2;
+  opacity: 0; transform: scale(0) translateX(50%);
+  transform-origin: center center;
+  box-shadow: 0 1px 0 rgba(26,26,26,0.06), 0 30px 60px -28px rgba(26,26,26,0.45);
+}
+.cta-split .plate::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+.cta-split .plate::after {
+  content: ''; position: absolute;
+  width: 240px; height: 240px; bottom: -100px; right: -90px;
+  background: radial-gradient(circle at 30% 30%, rgba(31,143,255,0.55), rgba(31,143,255,0) 65%);
+  filter: blur(6px); pointer-events: none;
+}
+.cta-split .plate-top {
+  position: relative; display: flex; align-items: center; gap: 10px;
+  font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(251,248,241,0.6);
+}
+.cta-split .plate-top .pulse {
+  width: 6px; height: 6px; border-radius: 999px; background: var(--blue);
+  box-shadow: 0 0 0 4px rgba(31,143,255,0.18);
+}
+.cta-split .plate-mark {
+  position: absolute; top: 30px; right: 28px;
+  width: 36px; height: 38px;
+  opacity: 0;
+}
+.cta-split .plate-mark svg { width: 100%; height: 100%; display: block; }
+.cta-split .plate-mark svg polygon:first-child { fill: var(--paper2); }
+.cta-split .plate-mark svg polygon:last-child  { fill: var(--blue); }
+
+.cta-split .plate-wordmark-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 28px;
+  clip-path: inset(0 100% 0 0);
+}
+.cta-split .plate-wordmark {
+  height: 28px;
+  filter: invert(1) brightness(2);
+}
+.cta-split .plate-tagline {
+  position: relative;
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: 22px; line-height: 1.1; color: var(--blue);
+  opacity: 0; transform: translateY(8px);
+  margin-top: 6px;
+}
+.cta-split .plate-foot {
+  position: relative; font-size: 12px; line-height: 1.5;
+  color: rgba(251,248,241,0.65); max-width: 240px;
+}
+.cta-split .plate-foot strong {
+  display: block; color: var(--paper2); font-weight: 500;
+  margin-bottom: 4px; letter-spacing: -0.01em;
+}
+
+/* ===== Form card (right) ===== */
+.cta-split .form-card {
+  position: absolute; inset: 0 0 0 auto;
+  width: 58%; height: 100%;
+  background: var(--card); border: 1px solid var(--line); border-left: none;
+  border-radius: 0 20px 20px 0;
+  padding: 30px 32px 26px;
+  display: flex; flex-direction: column;
+  opacity: 0; transform: scale(0); transform-origin: left center;
+  box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 30px 60px -28px rgba(26,26,26,0.30);
+}
+.cta-split .eyebrow {
+  font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--blue);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.cta-split .eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--blue100); }
+.cta-split h2 {
+  margin: 12px 0 4px; font-size: 28px; font-weight: 500;
+  letter-spacing: -0.024em; line-height: 1.08;
+}
+.cta-split h2 .serif { color: var(--blue); }
+.cta-split .sub {
+  font-size: 13.5px; color: var(--mute); line-height: 1.55; margin: 0 0 16px;
+}
+.cta-split .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.cta-split label {
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--mute2);
+}
+.cta-split input {
+  appearance: none; background: var(--paper2); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px;
+  font: inherit; font-size: 14.5px; color: var(--ink);
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.cta-split input::placeholder { color: var(--mute2); }
+.cta-split input:focus {
+  outline: none; background: #fff; border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(31,143,255,0.12);
+}
+.cta-split .submit {
+  margin-top: auto; padding-top: 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.cta-split .fine { font-size: 11px; color: var(--mute2); max-width: 180px; line-height: 1.4; }
+.cta-split button[type="submit"] {
+  appearance: none; border: none; background: var(--ink);
+  color: var(--paper2); font: inherit; font-weight: 500; font-size: 14px;
+  padding: 12px 20px; border-radius: 999px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: transform .12s ease, background .2s ease;
+}
+.cta-split button[type="submit"]:hover { background: var(--blue); }
+.cta-split button[type="submit"]:active { transform: scale(0.98); }
+.cta-split button[type="submit"] svg { width: 14px; height: 14px; }
+
+/* ===== Success state ===== */
+.cta-split .success {
+  position: absolute; inset: 0;
+  background: var(--card);
+  border-radius: inherit;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 32px;
+  text-align: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s ease;
+}
+.cta-split .form-card.done .success { opacity: 1; pointer-events: auto; }
+.cta-split .success-mark {
+  width: 44px; height: 44px; border-radius: 999px;
+  background: var(--blue50); border: 1px solid var(--blue100);
+  display: grid; place-items: center; margin-bottom: 14px;
+}
+.cta-split .success-mark svg { width: 20px; height: 20px; color: var(--blue); }
+.cta-split .success h3 {
+  margin: 0 0 6px; font-size: 22px; font-weight: 500; letter-spacing: -0.018em;
+}
+.cta-split .success p { margin: 0; font-size: 13.5px; color: var(--mute); max-width: 280px; line-height: 1.55; }
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .cta-split .plate,
+  .cta-split .form-card,
+  .cta-split .plate-mark,
+  .cta-split .plate-tagline { opacity: 1 !important; transform: none !important; }
+  .cta-split .plate-wordmark-wrap { clip-path: none !important; }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 720px) {
+  .cta-split .stage { height: auto; display: flex; flex-direction: column; }
+  .cta-split .plate, .cta-split .form-card {
+    position: relative; inset: auto; width: 100%; height: auto;
+  }
+  .cta-split .plate { min-height: 220px; border-radius: 20px 20px 0 0; }
+  .cta-split .form-card { border-radius: 0 0 20px 20px; border: 1px solid var(--line); border-top: none; }
+}

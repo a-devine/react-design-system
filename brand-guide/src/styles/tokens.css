@@ -1,0 +1,33 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Devine Edge — design tokens
+   Centralized brand variables. Every component references these by name, so
+   the whole system retones from one place.
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Ink & neutrals */
+  --ink:    #1A1A1A;
+  --ink2:   #2A2520;
+  --mute:   #6B635A;
+  --mute2:  #8F8579;
+
+  /* Paper / surfaces */
+  --paper:  #F8F4EC;
+  --paper2: #FBF8F1;
+  --card:   #FFFFFF;
+
+  /* Lines */
+  --line:   #E8E0CF;
+  --line2:  #D8CDB4;
+
+  /* Accent — electric blue */
+  --blue:    #1F8FFF;
+  --blue50:  #E3EFFF;
+  --blue100: #B9D7FB;
+
+  /* Support — teal */
+  --teal:   #25564F;
+  --teal50: #E0EAE7;
+
+  /* Layout */
+  --maxw: 1080px;
+}
