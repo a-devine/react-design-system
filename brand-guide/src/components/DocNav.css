@@ -1,0 +1,35 @@
+/* Floating document switcher — bottom-center, overlays without taking layout
+   space so it never disturbs a page's own header or sidebar. */
+.doc-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 5px;
+  background: rgba(248, 244, 236, 0.86);
+  backdrop-filter: blur(12px);
+  border: 1px solid #D8CDB4;
+  border-radius: 999px;
+  box-shadow: 0 1px 0 rgba(26, 26, 26, 0.04), 0 16px 40px -16px rgba(26, 26, 26, 0.35);
+}
+.doc-nav a {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: #6B635A;
+  padding: 7px 13px;
+  border-radius: 999px;
+  transition: color .15s ease, background .15s ease;
+  white-space: nowrap;
+}
+.doc-nav a:hover { color: #1A1A1A; background: rgba(26, 26, 26, 0.05); }
+.doc-nav a.active { color: #fff; background: #1F8FFF; }
+
+@media (max-width: 520px) {
+  .doc-nav a { padding: 7px 10px; font-size: 10.5px; }
+}

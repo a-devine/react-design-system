@@ -1,0 +1,139 @@
+/* ============================================================
+   Devine Edge · CTA · V2 SEAL — context: /audit landing page
+   Scoped under .cta-seal.
+   ============================================================ */
+
+.cta-seal {
+  --ink: #1A1A1A;
+  --mute: #6B635A;
+  --mute2: #8F8579;
+  --paper: #F8F4EC;
+  --paper2: #FBF8F1;
+  --card: #FFFFFF;
+  --line: #E8E0CF;
+  --blue: #1F8FFF;
+  --blue50: #E3EFFF;
+  --blue100: #B9D7FB;
+
+  position: relative; z-index: 1;
+  width: 100%; max-width: 480px;
+  border-radius: 22px;
+  background: var(--card); border: 1px solid var(--line);
+  padding: 40px 40px 32px;
+  box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 30px 60px -28px rgba(26,26,26,0.20);
+}
+.cta-seal .serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+
+/* Seal */
+.cta-seal .seal {
+  width: 84px; height: 90px; margin: 0 auto 16px;
+  display: grid; place-items: center; position: relative;
+  opacity: 0; transform: scale(2.4) rotate(-22deg);
+}
+.cta-seal .seal svg { width: 100%; height: 100%; display: block; }
+.cta-seal .seal svg polygon:first-child { fill: var(--ink); }
+.cta-seal .seal svg polygon:last-child  { fill: var(--blue); }
+
+.cta-seal .word-wrap {
+  text-align: center; overflow: hidden; padding: 4px 0;
+  opacity: 0; transform: translateY(8px);
+}
+.cta-seal .word-wrap img { height: 28px; margin: 0 auto; display: block; }
+
+.cta-seal .tag {
+  text-align: center; margin: 10px 0 4px;
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  color: var(--blue); font-size: 19px;
+  opacity: 0; transform: translateY(8px);
+}
+
+.cta-seal .rule {
+  height: 1px; background: var(--line); margin: 24px 0 22px;
+  opacity: 0; transform: scaleX(0);
+}
+
+.cta-seal .lede {
+  text-align: center; font-size: 21px; line-height: 1.25;
+  letter-spacing: -0.016em; margin: 0 0 6px; max-width: 340px; margin-inline: auto;
+  font-weight: 500;
+  opacity: 0;
+}
+.cta-seal .lede .serif { color: var(--blue); }
+.cta-seal .sub {
+  text-align: center; font-size: 13.5px; color: var(--mute); line-height: 1.55;
+  margin: 0 auto 20px; max-width: 340px;
+  opacity: 0;
+}
+
+.cta-seal .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; opacity: 0; transform: translateY(10px); }
+.cta-seal label {
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--mute2);
+}
+.cta-seal input {
+  appearance: none; background: var(--paper2); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px;
+  font: inherit; font-size: 14.5px; color: var(--ink);
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.cta-seal input::placeholder { color: var(--mute2); }
+.cta-seal input:focus {
+  outline: none; background: #fff; border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(31,143,255,0.12);
+}
+
+.cta-seal .footer-row {
+  margin-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  opacity: 0; transform: translateY(10px);
+}
+.cta-seal .fine { font-size: 11px; color: var(--mute2); }
+.cta-seal button[type="submit"] {
+  appearance: none; border: none; background: var(--ink);
+  color: var(--paper2); font: inherit; font-weight: 500; font-size: 14px;
+  padding: 12px 20px; border-radius: 999px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: transform .12s ease, background .2s ease;
+}
+.cta-seal button[type="submit"]:hover { background: var(--blue); }
+.cta-seal button[type="submit"]:active { transform: scale(0.98); }
+.cta-seal button[type="submit"] svg { width: 14px; height: 14px; }
+
+/* Trust row */
+.cta-seal .trust {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  font-size: 11.5px; color: var(--mute2);
+  opacity: 0;
+}
+.cta-seal .trust .dot { width: 3px; height: 3px; border-radius: 999px; background: var(--mute2); }
+
+/* Success */
+.cta-seal .success {
+  display: none;
+  text-align: center; padding: 14px 0 4px;
+}
+.cta-seal.done form, .cta-seal.done .trust { display: none; }
+.cta-seal.done .success { display: block; }
+.cta-seal .success-mark {
+  width: 44px; height: 44px; border-radius: 999px;
+  background: var(--blue50); border: 1px solid var(--blue100);
+  display: grid; place-items: center; margin: 0 auto 12px;
+}
+.cta-seal .success-mark svg { width: 20px; height: 20px; color: var(--blue); }
+.cta-seal .success h3 {
+  margin: 0 0 6px; font-size: 20px; font-weight: 500; letter-spacing: -0.018em;
+}
+.cta-seal .success p { margin: 0; font-size: 13.5px; color: var(--mute); line-height: 1.55; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cta-seal .seal, .cta-seal .word-wrap, .cta-seal .tag,
+  .cta-seal .rule, .cta-seal .lede, .cta-seal .sub,
+  .cta-seal .field, .cta-seal .footer-row, .cta-seal .trust {
+    opacity: 1 !important; transform: none !important;
+  }
+}
+
+@media (max-width: 540px) {
+  .cta-seal { padding: 32px 28px 28px; }
+}
