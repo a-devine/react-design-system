@@ -11,6 +11,7 @@ floating switcher (bottom-center) to move between them:
 | `/cta/:variant`  | A single CTA, full-page | `split` · `seal` · `inverted` · `inline` |
 | `/contact`       | `/contact` UI Spec | `project/UI-SPEC-contact.html`          |
 | `/diagrams`      | Homepage diagrams  | `src/diagrams/*` (new, not from the handoff) |
+| `/homepage`      | Homepage concept   | the diagrams composed into the editorial homepage direction |
 
 The **Brand Guide** is a single scrolling reference covering eight sections — Brand, Logo &
 Mark, Color, Typography, Voice & Tone, UI Components, Motion, and Imagery & Iconography — with
@@ -61,6 +62,9 @@ src/
     LocalVisibilityIllustration.jsx (+ .css)  hero isometric map, one coordinated SVG
     VisibilityDiagram.jsx (+ .css)            find → trust → contact cards + SVG connectors
     SnapshotPreview.jsx (+ .css)              annotated Snapshot report (illustrative sample data)
+    ServiceArtifacts.jsx (+ .css)             each offer shown as its deliverable, locked rate card
+    EvidenceModule.jsx (+ .css)               dated proof slots: demonstration / own site / client
+    LocalPhoto.jsx (+ .css)                   one original local photo, or a labeled commission slot
   cta/
     ctaShared.jsx          entrance hook + submit/analytics contract + glyphs
     CtaSplit.jsx  (+ .css) V1 Split    — homepage hero
@@ -87,7 +91,17 @@ and light motion. No diagramming library or 3D engine is used.
   the detail panel. It is labeled *Illustrative sample* and should keep that label until it
   carries verified findings.
 
-All three reference the global tokens and use their own CSS for motion. That motion is
+- **ServiceArtifacts**: the seven offers, each with a simplified drawing of what it delivers.
+  Prices follow the locked rate card.
+- **EvidenceModule / EvidenceSlot**: heading, figure, date range, explanation, limitation. The three
+  kinds (demonstration, own site, client) look different from each other. With no `media` passed,
+  a slot shows "Awaiting verified data" rather than a stand-in chart.
+- **LocalPhoto**: an original photograph, or a labeled slot with the shot brief. Never stock.
+
+`/homepage` puts them together in the recommended order. Motion runs once on entry and then the page
+holds still; no animation loops.
+
+All of them reference the global tokens and use their own CSS for motion. That motion is
 switched off under `prefers-reduced-motion`.
 
 ### CTA components

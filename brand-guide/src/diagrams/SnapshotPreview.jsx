@@ -14,21 +14,24 @@ const SAMPLE_BUSINESS = {
 const SAMPLE_OBSERVATIONS = [
   {
     id: 'service-area',
-    label: 'Clarify the service area',
-    observation: 'This illustrative page does not name the towns served.',
-    recommendation: 'Add a clear service-area statement near the contact section.',
+    label: 'Service area needs clarification',
+    observed: 'The homepage never names the towns this business serves.',
+    why: 'People searching nearby can’t tell whether this business covers their address, so they keep looking.',
+    next: 'Add a plain service-area statement near the contact section and on each service page.',
+  },
+  {
+    id: 'details',
+    label: 'Profile and website details differ',
+    observed: 'Hours on the website don’t match the hours on the business profile.',
+    why: 'Conflicting details make it harder for customers — and search systems — to trust either one.',
+    next: 'Choose one set of hours and use it everywhere the business is listed.',
   },
   {
     id: 'contact',
-    label: 'Surface the phone number',
-    observation: 'The phone number appears only in the footer, below the fold on mobile.',
-    recommendation: 'Repeat a tap-to-call number in the header and beside each service.',
-  },
-  {
-    id: 'hours',
-    label: 'Align listed hours',
-    observation: 'Hours on the site differ from the hours on the sample business profile.',
-    recommendation: 'Keep hours identical across the website and the Google profile.',
+    label: 'Contact path needs attention',
+    observed: 'The phone number appears only in the footer, below the fold on a phone.',
+    why: 'Someone ready to call has to scroll past everything else to find out how.',
+    next: 'Put a tap-to-call number in the header and beside each service.',
   },
 ];
 
@@ -55,7 +58,7 @@ function BusinessSummary({ business }) {
 function Pin({ n, active, onSelect }) {
   return (
     <span className={`snapshot__pin${active ? ' is-active' : ''}`} aria-hidden="true" onClick={onSelect}>
-      {n}
+      {String(n).padStart(2, '0')}
     </span>
   );
 }
@@ -69,7 +72,7 @@ function PageMock({ business, active, onSelect }) {
         <div className="snapshot__site-nav">
           <b>{business.name}</b>
           <span>Services</span><span>About</span>
-          <Pin n={2} active={active === 1} onSelect={() => onSelect(1)} />
+          <Pin n={3} active={active === 2} onSelect={() => onSelect(2)} />
         </div>
         <div className="snapshot__site-hero">
           <span className="snapshot__bar snapshot__bar--lg" />
@@ -80,7 +83,7 @@ function PageMock({ business, active, onSelect }) {
         <div className="snapshot__site-tiles"><span /><span /><span /></div>
         <div className="snapshot__site-foot">
           <span>Mon–Fri 8–5</span><span>(555) 010-0100</span>
-          <Pin n={3} active={active === 2} onSelect={() => onSelect(2)} />
+          <Pin n={2} active={active === 1} onSelect={() => onSelect(1)} />
         </div>
       </div>
     </div>
@@ -96,7 +99,7 @@ function ObservationButton({ n, item, active, detailId, onSelect }) {
       aria-controls={detailId}
       onClick={onSelect}
     >
-      <span className="snapshot__obs-n" aria-hidden="true">{n}</span>
+      <span className="snapshot__obs-n">{String(n).padStart(2, '0')}</span>
       <span>{item.label}</span>
     </button>
   );
@@ -105,9 +108,14 @@ function ObservationButton({ n, item, active, detailId, onSelect }) {
 function ObservationDetail({ id, n, item }) {
   return (
     <div id={id} className="snapshot__detail" role="status" aria-atomic="true">
-      <span className="snapshot__detail-label">Observation {n} of {SAMPLE_OBSERVATIONS.length}</span>
-      <p className="snapshot__detail-obs">{item.observation}</p>
-      <p className="snapshot__detail-rec"><span>Recommendation</span>{item.recommendation}</p>
+      <span className="snapshot__detail-label">
+        {String(n).padStart(2, '0')} — {item.label}
+      </span>
+      <dl className="snapshot__detail-rows">
+        <div><dt>What we observed</dt><dd>{item.observed}</dd></div>
+        <div><dt>Why it matters</dt><dd>{item.why}</dd></div>
+        <div><dt>Recommended next step</dt><dd>{item.next}</dd></div>
+      </dl>
     </div>
   );
 }

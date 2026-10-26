@@ -36,14 +36,17 @@
 .visibility__connector {
   position: absolute; top: 50%; left: calc(-1 * var(--vd-gap)); width: var(--vd-gap);
   display: flex; justify-content: center; transform: translateY(-50%);
-  color: var(--vd-blue-text); pointer-events: none;
+  color: var(--line2); pointer-events: none;
+  transition: color .2s ease;
 }
+.visibility__connector.is-active { color: var(--blue); }
 .visibility__connector svg { width: 36px; height: 12px; overflow: visible; }
 .visibility__connector-line,
 .visibility__connector-head {
   fill: none; stroke: currentColor; stroke-width: 1.5;
-  stroke-linecap: round; stroke-linejoin: round;
+  stroke-linecap: round; stroke-linejoin: round; transition: stroke-width .2s ease;
 }
+.visibility__connector.is-active .visibility__connector-line { stroke-width: 2; }
 
 .visibility__card {
   flex: 1; display: flex; flex-direction: column; align-items: stretch; min-width: 0;
@@ -96,7 +99,7 @@
 @keyframes vd-fade { from { opacity: 0; } to { opacity: 1; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .visibility__card { transition: none; }
+  .visibility__card, .visibility__connector { transition: none; }
   .visibility__card:hover { transform: none; }
 }
 

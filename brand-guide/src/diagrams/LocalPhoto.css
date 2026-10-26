@@ -1,0 +1,25 @@
+/* ============================================================
+   Devine Edge · Local photograph — scoped under .local-photo
+   ============================================================ */
+
+.local-photo { margin: 0; }
+.local-photo__frame {
+  aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--paper2);
+}
+.local-photo__frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.local-photo__slot {
+  display: grid; align-content: end; gap: 8px; height: 100%; padding: 24px;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, rgba(216, 205, 180, 0.35) 14px 15px),
+    var(--paper2);
+}
+.local-photo__slot span {
+  font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10.5px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute);
+}
+.local-photo__slot p { margin: 0; max-width: 36ch; font-size: 14px; line-height: 1.55; color: var(--ink2); }
+.local-photo figcaption { margin-top: 10px; font-size: 12.5px; line-height: 1.5; color: var(--mute); }
+.local-photo__credit {
+  margin-left: 8px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10.5px; color: var(--mute2);
+}

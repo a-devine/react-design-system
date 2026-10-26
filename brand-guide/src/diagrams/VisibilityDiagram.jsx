@@ -5,37 +5,38 @@ const STEPS = [
   {
     id: 'information',
     number: '01',
-    label: 'Your information',
+    label: 'Your business information',
     title: 'Explain your business.',
-    items: ['Website', 'Google profile', 'Services & reviews'],
-    detail: 'We clarify what you do, where you work, and how customers can contact you.',
+    items: ['Website', 'Google profile', 'Services', 'Reviews'],
+    detail: 'We clarify what you do, where you work, and how customers can contact you — consistently, everywhere it appears.',
   },
   {
     id: 'discovery',
     number: '02',
     label: 'Discovery & evaluation',
     title: 'Help people find you.',
-    items: ['Local search', 'Google Maps', 'AI answers'],
-    detail: 'We review how your business appears across discovery surfaces and identify practical gaps.',
+    items: ['Search', 'Maps', 'AI answers'],
+    detail: 'We review how your business appears where people look, and name the practical gaps worth fixing first.',
   },
   {
     id: 'contact',
     number: '03',
-    label: 'The next step',
+    label: 'Customer next step',
     title: 'Make contact easier.',
-    items: ['Call', 'Send an inquiry', 'Request an estimate'],
-    detail: 'We make the next customer action clear, relevant, and easy to take.',
+    items: ['Call', 'Inquiry', 'Estimate request'],
+    detail: 'We make the next action clear, relevant, and easy to take from any screen.',
   },
 ];
 
 /**
  * Connector between two cards. Each one is its own small SVG with a uniform
  * viewBox, so the arrowhead never stretches with the card height. Decorative —
- * the same sequence is carried by the numbered HTML cards.
+ * the same sequence is carried by the numbered HTML cards. A connector lights up
+ * when either card it joins is selected.
  */
-function Connector() {
+function Connector({ active }) {
   return (
-    <span className="visibility__connector" aria-hidden="true">
+    <span className={`visibility__connector${active ? ' is-active' : ''}`} aria-hidden="true">
       <svg viewBox="0 0 40 12" focusable="false">
         <path className="visibility__connector-line" d="M2 6 H36" pathLength="1" />
         <path className="visibility__connector-head" d="M31 1.5 L37 6 L31 10.5" />
@@ -65,7 +66,7 @@ export default function VisibilityDiagram() {
       <div className="visibility__grid">
         {STEPS.map((s, i) => (
           <div className="visibility__cell" key={s.id}>
-            {i > 0 && <Connector />}
+            {i > 0 && <Connector active={active === i || active === i - 1} />}
             <button
               type="button"
               className="visibility__card"
@@ -93,7 +94,7 @@ export default function VisibilityDiagram() {
       </div>
 
       <p className="visibility__caption">
-        A conceptual customer journey — not a model of how search engines or AI systems select results.
+        A conceptual path — not a model of how search engines or AI systems select results.
       </p>
     </section>
   );

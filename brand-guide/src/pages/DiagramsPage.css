@@ -48,6 +48,8 @@
 .dp-hero-copy p { margin: 0; color: var(--mute); font-size: 16px; line-height: 1.6; max-width: 44ch; }
 .dp-hero-art { max-width: 620px; justify-self: center; }
 
+.dp-photo { max-width: 520px; }
+
 @media (max-width: 860px) {
   .dp-hero { grid-template-columns: 1fr; }
 }

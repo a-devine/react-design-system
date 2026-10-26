@@ -6,6 +6,7 @@ const DOCS = [
   { to: '/cta', label: 'CTA Library', end: false },
   { to: '/contact', label: 'Contact Spec', end: false },
   { to: '/diagrams', label: 'Diagrams', end: false },
+  { to: '/homepage', label: 'Homepage', end: false },
 ];
 
 /** Floating switcher between the Devine Edge design documents. */

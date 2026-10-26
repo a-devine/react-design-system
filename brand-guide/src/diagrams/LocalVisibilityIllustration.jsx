@@ -71,8 +71,8 @@ export default function LocalVisibilityIllustration({ className = '' }) {
     >
       <title id={titleId}>A connected local business presence</title>
       <desc id={descId}>
-        Conceptual illustration: a business marked on a local map, connected to a search,
-        its website, and its Google profile, leading to a customer contact request.
+        Conceptual illustration, not measured data: a business marked on a local map, connected
+        to a search, its website, and its Google profile, leading to a customer estimate request.
       </desc>
 
       <defs>
@@ -167,6 +167,9 @@ export default function LocalVisibilityIllustration({ className = '' }) {
         <text className="lvi__mono" x="482" y="428">Next step</text>
         <text className="lvi__title" x="482" y="448">Estimate requested</text>
       </RaisedCard>
+
+      {/* Visible label — this is a concept, not measured visibility */}
+      <text className="lvi__note" x="320" y="22" textAnchor="middle">Conceptual illustration</text>
     </svg>
   );
 }

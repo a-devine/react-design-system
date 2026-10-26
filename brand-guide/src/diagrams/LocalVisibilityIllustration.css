@@ -26,7 +26,7 @@
 .lvi__node--teal { stroke: var(--teal); }
 
 /* ── Business marker ────────────────────────────────── */
-.lvi__pulse      { fill: none; stroke: var(--blue); stroke-width: 1.25; opacity: 0.35; }
+.lvi__pulse      { fill: none; stroke: var(--blue); stroke-width: 1.25; opacity: 0; }
 .lvi__pin-shadow { fill: rgba(26, 26, 26, 0.18); }
 .lvi__pin        { fill: var(--ink); }
 .lvi__pin-face   { fill: var(--ink2); stroke: rgba(255, 255, 255, 0.08); }
@@ -78,19 +78,24 @@
   .lvi__contact  { animation-delay: .65s; }
 
   .lvi__connections { animation: lvi-fade .5s ease-out .5s both; }
-  .lvi__link { animation: lvi-flow 1.6s linear infinite; }
+  .lvi__link { animation: lvi-flow 1.2s ease-out .5s both; }
 
+  /* One pulse on arrival, then a stable final state — no endless loops. */
   .lvi__pulse {
     transform-box: fill-box; transform-origin: center;
-    animation: lvi-pulse 2.8s ease-out 1s infinite;
+    animation: lvi-pulse 1.4s ease-out .8s 2 both;
   }
 }
 
 @keyframes lvi-rise  { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes lvi-fade  { from { opacity: 0; } to { opacity: 1; } }
-@keyframes lvi-flow  { to { stroke-dashoffset: -16; } }
+@keyframes lvi-flow  { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
 @keyframes lvi-pulse {
   0%   { transform: scale(0.6); opacity: 0.5; }
-  80%  { transform: scale(1.5); opacity: 0; }
   100% { transform: scale(1.5); opacity: 0; }
+}
+
+.lvi__note {
+  font-family: 'Geist Mono', ui-monospace, monospace; font-size: 9px;
+  letter-spacing: 0.14em; text-transform: uppercase; fill: var(--mute2);
 }

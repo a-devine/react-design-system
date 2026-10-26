@@ -3,6 +3,9 @@ import { WORDMARK } from '../assets.js';
 import LocalVisibilityIllustration from '../diagrams/LocalVisibilityIllustration.jsx';
 import VisibilityDiagram from '../diagrams/VisibilityDiagram.jsx';
 import SnapshotPreview from '../diagrams/SnapshotPreview.jsx';
+import ServiceArtifacts from '../diagrams/ServiceArtifacts.jsx';
+import EvidenceModule from '../diagrams/EvidenceModule.jsx';
+import LocalPhoto from '../diagrams/LocalPhoto.jsx';
 import './DiagramsPage.css';
 
 /** Route "/diagrams" — the homepage explanation visuals, shown in context. */
@@ -44,6 +47,23 @@ export default function DiagramsPage() {
         <section className="dp-block" aria-labelledby="dp-snap">
           <div className="dp-label"><span>03</span><h2 id="dp-snap">Annotated Snapshot preview</h2><code>SnapshotPreview</code></div>
           <SnapshotPreview />
+        </section>
+
+        <section className="dp-block" aria-labelledby="dp-svc">
+          <div className="dp-label"><span>04</span><h2 id="dp-svc">Services as artifacts</h2><code>ServiceArtifacts</code></div>
+          <ServiceArtifacts />
+        </section>
+
+        <section className="dp-block" aria-labelledby="dp-ev">
+          <div className="dp-label"><span>05</span><h2 id="dp-ev">Evidence slot</h2><code>EvidenceModule · EvidenceSlot</code></div>
+          <EvidenceModule />
+        </section>
+
+        <section className="dp-block" aria-labelledby="dp-photo">
+          <div className="dp-label"><span>06</span><h2 id="dp-photo">Local photograph</h2><code>LocalPhoto</code></div>
+          <div className="dp-photo">
+            <LocalPhoto brief="A quiet Rock River detail — water, bridge, or riverbank. Original, not stock." caption="Rock River, Dixon." />
+          </div>
         </section>
       </main>
     </div>
