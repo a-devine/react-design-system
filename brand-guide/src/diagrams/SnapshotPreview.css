@@ -1,0 +1,126 @@
+/* ============================================================
+   Devine Edge · Annotated Snapshot preview — scoped under .snapshot
+   ============================================================ */
+
+.snapshot { --sn-blue-text: #1764A9; color: var(--ink); }
+
+.snapshot__report {
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+  box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 24px 50px -32px rgba(26,26,26,0.22);
+}
+
+/* ── Header + summary ───────────────────────────────── */
+.snapshot__report-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 18px 26px; border-bottom: 1px solid var(--line);
+}
+.snapshot__report-title { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.snapshot__badge,
+.snapshot__summary dt,
+.snapshot__detail-label,
+.snapshot__detail-rec span {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.snapshot__badge {
+  padding: 5px 10px; border: 1px dashed var(--line2); border-radius: 999px;
+  color: var(--mute); background: var(--paper2); white-space: nowrap;
+}
+
+.snapshot__summary {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+  margin: 0; padding: 18px 26px; border-bottom: 1px solid var(--line); background: var(--paper2);
+}
+.snapshot__summary dt { color: var(--mute2); }
+.snapshot__summary dd { margin: 4px 0 0; font-size: 14px; color: var(--ink2); }
+
+.snapshot__body {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 28px; padding: 26px;
+}
+
+/* ── Page mock ──────────────────────────────────────── */
+.snapshot__page {
+  border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper);
+  align-self: start;
+}
+.snapshot__chrome {
+  display: flex; align-items: center; gap: 6px; padding: 9px 12px;
+  border-bottom: 1px solid var(--line); background: var(--paper2);
+}
+.snapshot__chrome i { width: 7px; height: 7px; border-radius: 50%; background: var(--line2); }
+.snapshot__chrome span {
+  margin-left: 8px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10.5px; color: var(--mute2);
+}
+.snapshot__site { padding: 16px; display: grid; gap: 14px; }
+.snapshot__site > div { position: relative; }
+.snapshot__site-nav { display: flex; align-items: center; gap: 14px; font-size: 11px; color: var(--mute); }
+.snapshot__site-nav b { margin-right: auto; color: var(--ink); font-weight: 600; font-size: 12px; }
+.snapshot__site-hero {
+  display: grid; gap: 8px; padding: 22px 18px; border-radius: 9px; background: var(--card);
+  border: 1px solid var(--line);
+}
+.snapshot__bar { display: block; height: 9px; border-radius: 5px; background: var(--line); }
+.snapshot__bar--lg { width: 78%; height: 14px; background: var(--ink2); opacity: .85; }
+.snapshot__bar--md { width: 62%; }
+.snapshot__bar--sm { width: 30%; height: 18px; margin-top: 6px; background: var(--blue100); }
+.snapshot__site-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.snapshot__site-tiles span { height: 48px; border-radius: 8px; background: var(--card); border: 1px solid var(--line); }
+.snapshot__site-foot {
+  display: flex; gap: 16px; padding: 10px 12px; border-radius: 8px; background: var(--ink);
+  color: var(--paper2); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10px;
+}
+
+.snapshot__pin {
+  position: absolute; top: -9px; right: -9px; z-index: 1;
+  display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--card); border: 1.5px solid var(--sn-blue-text); color: var(--sn-blue-text);
+  font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; font-weight: 500;
+  cursor: pointer; box-shadow: 0 4px 10px -4px rgba(26,26,26,0.3);
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+.snapshot__site-nav .snapshot__pin { position: static; margin-left: 4px; }
+.snapshot__pin.is-active { background: var(--sn-blue-text); color: #fff; transform: scale(1.12); }
+
+/* ── Observations ───────────────────────────────────── */
+.snapshot__panel { display: grid; gap: 16px; align-content: start; min-width: 0; }
+.snapshot__obs-list { display: grid; gap: 8px; }
+.snapshot__obs {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--card); color: var(--ink2); font: inherit; font-size: 14px; text-align: left; cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+.snapshot__obs:hover { border-color: var(--blue100); }
+.snapshot__obs[aria-pressed="true"] { border-color: var(--teal); background: var(--teal50); color: var(--ink); }
+.snapshot__obs:focus-visible { outline: 3px solid var(--sn-blue-text); outline-offset: 3px; }
+.snapshot__obs-n {
+  flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid var(--sn-blue-text); color: var(--sn-blue-text);
+  font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px;
+}
+.snapshot__obs[aria-pressed="true"] .snapshot__obs-n { background: var(--sn-blue-text); color: #fff; }
+
+.snapshot__detail {
+  padding: 18px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper2);
+}
+.snapshot__detail-label { color: var(--teal); }
+.snapshot__detail-obs { margin: 8px 0 14px; font-size: 15px; line-height: 1.55; color: var(--ink); }
+.snapshot__detail-rec {
+  margin: 0; padding-top: 14px; border-top: 1px solid var(--line);
+  font-size: 14px; line-height: 1.55; color: var(--ink2);
+}
+.snapshot__detail-rec span { display: block; margin-bottom: 4px; color: var(--sn-blue-text); }
+
+.snapshot__caption { margin: 14px 0 0; color: var(--mute); font-size: 12px; line-height: 1.6; }
+
+@media (prefers-reduced-motion: reduce) {
+  .snapshot__pin, .snapshot__obs { transition: none; }
+  .snapshot__pin.is-active { transform: none; }
+}
+
+@media (max-width: 760px) {
+  .snapshot__body { grid-template-columns: 1fr; padding: 18px; gap: 22px; }
+  .snapshot__summary { grid-template-columns: 1fr; gap: 10px; padding: 16px 18px; }
+  .snapshot__report-head { padding: 16px 18px; }
+}

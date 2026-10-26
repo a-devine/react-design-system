@@ -5,9 +5,10 @@ const DOCS = [
   { to: '/', label: 'Brand Guide', end: true },
   { to: '/cta', label: 'CTA Library', end: false },
   { to: '/contact', label: 'Contact Spec', end: false },
+  { to: '/diagrams', label: 'Diagrams', end: false },
 ];
 
-/** Floating switcher between the three Devine Edge design documents. */
+/** Floating switcher between the Devine Edge design documents. */
 export default function DocNav() {
   return (
     <nav className="doc-nav" aria-label="Documents">

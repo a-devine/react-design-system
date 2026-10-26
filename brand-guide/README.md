@@ -10,6 +10,7 @@ floating switcher (bottom-center) to move between them:
 | `/cta`           | CTA Library (gallery) | `project/cta/*.html`                  |
 | `/cta/:variant`  | A single CTA, full-page | `split` · `seal` · `inverted` · `inline` |
 | `/contact`       | `/contact` UI Spec | `project/UI-SPEC-contact.html`          |
+| `/diagrams`      | Homepage diagrams  | `src/diagrams/*` (new, not from the handoff) |
 
 The **Brand Guide** is a single scrolling reference covering eight sections — Brand, Logo &
 Mark, Color, Typography, Voice & Tone, UI Components, Motion, and Imagery & Iconography — with
@@ -56,6 +57,10 @@ src/
     CtaPage.jsx            route "/cta"     — CTA Library gallery
     CtaStandalonePage.jsx  route "/cta/:variant" — one CTA, full-page
     ContactSpecPage.jsx    route "/contact" — contact UI spec (+ .css)
+  diagrams/                homepage explanation visuals (inline SVG + React + CSS, no deps)
+    LocalVisibilityIllustration.jsx (+ .css)  hero isometric map, one coordinated SVG
+    VisibilityDiagram.jsx (+ .css)            find → trust → contact cards + SVG connectors
+    SnapshotPreview.jsx (+ .css)              annotated Snapshot report (illustrative sample data)
   cta/
     ctaShared.jsx          entrance hook + submit/analytics contract + glyphs
     CtaSplit.jsx  (+ .css) V1 Split    — homepage hero
@@ -65,6 +70,25 @@ src/
 public/
   assets/                  wordmark.svg, icon.svg, favicon.svg (served at /assets)
 ```
+
+### Diagram components
+
+`/diagrams` shows three homepage visuals in context. They are built with inline SVG for the
+illustration and connectors, ordinary React components for cards and controls, and CSS for layout
+and light motion. No diagramming library or 3D engine is used.
+
+- **LocalVisibilityIllustration**: fixed, art-directed coordinates on an isometric map plane
+  (`iso(a, b, h)` helper). Depth comes from layered faces and blurred ground shadows.
+  `role="img"` plus `<title>`/`<desc>`.
+- **VisibilityDiagram**: three `aria-pressed` step buttons drive a `role="status"` detail panel.
+  Each connector is its own small SVG with a uniform viewBox, so the arrowhead never stretches.
+  On mobile the cards stack and the connectors point downward.
+- **SnapshotPreview**: one observations array renders the numbered pins, the button list, and
+  the detail panel. It is labeled *Illustrative sample* and should keep that label until it
+  carries verified findings.
+
+All three reference the global tokens and use their own CSS for motion. That motion is
+switched off under `prefers-reduced-motion`.
 
 ### CTA components
 

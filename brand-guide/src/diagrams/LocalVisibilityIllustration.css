@@ -1,0 +1,96 @@
+/* ============================================================
+   Devine Edge · Hero local-visibility illustration — scoped under .lvi
+   Fills and strokes reference the brand tokens, so it retones with them.
+   ============================================================ */
+
+.lvi { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* ── Map ─────────────────────────────────────────────── */
+.lvi__plane        { fill: var(--paper2); stroke: var(--line2); stroke-width: 1; }
+.lvi__plane-side-l { fill: var(--line); }
+.lvi__plane-side-r { fill: var(--line2); }
+.lvi__street       { stroke: var(--card); stroke-width: 9; stroke-linecap: round; }
+.lvi__street-mid   { stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 6; }
+.lvi__lot          { fill: var(--blue50); stroke: var(--blue100); stroke-width: 1; }
+.lvi__face-top     { fill: var(--card); stroke: var(--line2); stroke-width: 0.75; stroke-linejoin: round; }
+.lvi__face-left    { fill: var(--line); }
+.lvi__face-right   { fill: var(--line2); }
+
+/* ── Connections ────────────────────────────────────── */
+.lvi__link {
+  fill: none; stroke: var(--blue); stroke-width: 1.5; stroke-linecap: round;
+  stroke-dasharray: 2 6;
+}
+.lvi__link--teal { stroke: var(--teal); }
+.lvi__node       { fill: var(--card); stroke: var(--blue); stroke-width: 1.5; }
+.lvi__node--teal { stroke: var(--teal); }
+
+/* ── Business marker ────────────────────────────────── */
+.lvi__pulse      { fill: none; stroke: var(--blue); stroke-width: 1.25; opacity: 0.35; }
+.lvi__pin-shadow { fill: rgba(26, 26, 26, 0.18); }
+.lvi__pin        { fill: var(--ink); }
+.lvi__pin-face   { fill: var(--ink2); stroke: rgba(255, 255, 255, 0.08); }
+.lvi__mark-e     { fill: var(--paper2); }
+.lvi__mark-arrow { fill: var(--blue); }
+
+/* ── Raised cards ───────────────────────────────────── */
+.lvi__ground-shadow { fill: rgba(26, 26, 26, 0.16); }
+.lvi__card-side     { fill: var(--line2); }
+.lvi__card-top      { fill: var(--card); stroke: var(--line); stroke-width: 1; }
+.lvi__divider       { stroke: var(--line); stroke-width: 1; }
+.lvi__dot           { fill: var(--line2); }
+.lvi__bar           { fill: var(--line); }
+.lvi__bar-dark      { fill: var(--ink2); }
+.lvi__bar-blue      { fill: var(--blue); }
+.lvi__icon-stroke   { fill: none; stroke: var(--ink2); stroke-width: 1.75; stroke-linecap: round; }
+.lvi__star          { fill: var(--blue); }
+.lvi__chip          { fill: var(--blue50); }
+.lvi__check-bg      { fill: var(--teal50); }
+.lvi__check {
+  fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.lvi__mono {
+  font-family: 'Geist Mono', ui-monospace, monospace; font-size: 9.5px;
+  letter-spacing: 0.12em; text-transform: uppercase; fill: var(--mute2);
+}
+.lvi__text       { font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; font-size: 12.5px; fill: var(--ink2); }
+.lvi__text--teal { fill: var(--teal); font-size: 11.5px; }
+.lvi__title {
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 600;
+  letter-spacing: -0.01em; fill: var(--ink);
+}
+.lvi__chip-text {
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; font-size: 10.5px;
+  text-anchor: middle; fill: #1764A9;
+}
+
+/* ── Entrance + ambient motion (off under reduced motion) ── */
+@media (prefers-reduced-motion: no-preference) {
+  .lvi__card, .lvi__business {
+    transform-box: fill-box; transform-origin: center;
+    animation: lvi-rise .6s cubic-bezier(.2, .7, .2, 1) both;
+  }
+  .lvi__business { animation-delay: .1s; }
+  .lvi__search   { animation-delay: .25s; }
+  .lvi__website  { animation-delay: .35s; }
+  .lvi__profile  { animation-delay: .45s; }
+  .lvi__contact  { animation-delay: .65s; }
+
+  .lvi__connections { animation: lvi-fade .5s ease-out .5s both; }
+  .lvi__link { animation: lvi-flow 1.6s linear infinite; }
+
+  .lvi__pulse {
+    transform-box: fill-box; transform-origin: center;
+    animation: lvi-pulse 2.8s ease-out 1s infinite;
+  }
+}
+
+@keyframes lvi-rise  { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes lvi-fade  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lvi-flow  { to { stroke-dashoffset: -16; } }
+@keyframes lvi-pulse {
+  0%   { transform: scale(0.6); opacity: 0.5; }
+  80%  { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1.5); opacity: 0; }
+}

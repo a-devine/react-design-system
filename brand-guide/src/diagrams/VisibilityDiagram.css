@@ -1,0 +1,114 @@
+/* ============================================================
+   Devine Edge · "Search to contact" diagram — scoped under .visibility
+   Uses the global brand tokens (tokens.css). --vd-blue-text is a darker
+   blue for small text on white: --blue alone is under 4.5:1 there.
+   ============================================================ */
+
+.visibility {
+  --vd-blue-text: #1764A9;
+  --vd-gap: 44px;
+
+  color: var(--ink);
+}
+
+.visibility__header { max-width: 620px; margin-bottom: 40px; }
+.visibility__header h2 {
+  margin: 16px 0 14px;
+  font-size: clamp(32px, 4.5vw, 52px); font-weight: 500;
+  line-height: 1.06; letter-spacing: -0.04em;
+}
+.visibility__header h2 .serif { color: var(--blue); }
+.visibility__header p { margin: 0; color: var(--mute); font-size: 16px; line-height: 1.6; }
+
+.visibility__number,
+.visibility__detail-label {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px; line-height: 1.6; letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+/* ── Cards + connectors ─────────────────────────────── */
+.visibility__grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--vd-gap);
+}
+.visibility__cell { position: relative; display: flex; min-width: 0; }
+
+.visibility__connector {
+  position: absolute; top: 50%; left: calc(-1 * var(--vd-gap)); width: var(--vd-gap);
+  display: flex; justify-content: center; transform: translateY(-50%);
+  color: var(--vd-blue-text); pointer-events: none;
+}
+.visibility__connector svg { width: 36px; height: 12px; overflow: visible; }
+.visibility__connector-line,
+.visibility__connector-head {
+  fill: none; stroke: currentColor; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+.visibility__card {
+  flex: 1; display: flex; flex-direction: column; align-items: stretch; min-width: 0;
+  padding: 28px; border: 1px solid var(--line); border-radius: 16px;
+  background: var(--card); color: inherit; font: inherit; text-align: left; cursor: pointer;
+  box-shadow: 0 1px 0 rgba(26,26,26,0.04), 0 18px 40px -28px rgba(26,26,26,0.18);
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.visibility__card:hover { transform: translateY(-3px); border-color: var(--blue100); }
+.visibility__card[aria-pressed="true"] {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px var(--teal50), 0 18px 40px -28px rgba(26,26,26,0.18);
+}
+.visibility__card:focus-visible { outline: 3px solid var(--vd-blue-text); outline-offset: 5px; }
+
+.visibility__number { min-height: 34px; color: var(--vd-blue-text); }
+.visibility__title {
+  margin: 20px 0; font-size: clamp(21px, 2.3vw, 27px); font-weight: 500;
+  line-height: 1.15; letter-spacing: -0.03em;
+}
+.visibility__items { display: grid; gap: 8px; color: var(--mute); font-size: 13.5px; line-height: 1.5; }
+.visibility__action {
+  display: flex; justify-content: space-between; gap: 12px;
+  margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line);
+  color: var(--teal); font-size: 12.5px;
+}
+.visibility__items + .visibility__action { margin-top: 28px; }
+
+/* ── Detail panel ───────────────────────────────────── */
+.visibility__detail {
+  min-height: 104px; margin-top: 24px; padding: 22px 26px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--paper2);
+}
+.visibility__detail-label { color: var(--teal); }
+.visibility__detail p {
+  max-width: 760px; margin: 8px 0 0; color: var(--ink2); font-size: 15px; line-height: 1.6;
+}
+.visibility__caption { margin: 14px 0 0; color: var(--mute); font-size: 12px; line-height: 1.6; }
+
+/* ── Motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .visibility__connector-line {
+    stroke-dasharray: 1; animation: vd-draw .7s ease-out both;
+  }
+  .visibility__connector-head { animation: vd-fade .3s ease-out .55s both; }
+  .visibility__cell:nth-child(3) .visibility__connector-line { animation-delay: .25s; }
+  .visibility__cell:nth-child(3) .visibility__connector-head { animation-delay: .8s; }
+}
+@keyframes vd-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes vd-fade { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .visibility__card { transition: none; }
+  .visibility__card:hover { transform: none; }
+}
+
+/* ── Mobile: stack vertically, connectors turn downward ── */
+@media (max-width: 720px) {
+  .visibility { --vd-gap: 36px; }
+  .visibility__grid { grid-template-columns: 1fr; }
+  .visibility__connector {
+    top: calc(-1 * var(--vd-gap)); left: 0; width: 100%; height: var(--vd-gap);
+    align-items: center; transform: none;
+  }
+  .visibility__connector svg { transform: rotate(90deg); }
+  .visibility__number { min-height: 0; }
+  .visibility__detail { min-height: 0; }
+}

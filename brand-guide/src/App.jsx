@@ -5,6 +5,7 @@ import BrandGuidePage from './pages/BrandGuidePage.jsx';
 import CtaPage from './pages/CtaPage.jsx';
 import CtaStandalonePage from './pages/CtaStandalonePage.jsx';
 import ContactSpecPage from './pages/ContactSpecPage.jsx';
+import DiagramsPage from './pages/DiagramsPage.jsx';
 
 /** Scroll to top on route change (but preserve in-page #anchor jumps). */
 function ScrollReset() {
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/cta" element={<CtaPage />} />
         <Route path="/cta/:variant" element={<CtaStandalonePage />} />
         <Route path="/contact" element={<ContactSpecPage />} />
+        <Route path="/diagrams" element={<DiagramsPage />} />
       </Routes>
       <DocNav />
     </>
